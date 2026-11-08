@@ -53,7 +53,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .marca{display:flex;align-items:center;gap:10px;color:var(--texto);text-decoration:none;font:700 20px var(--f-titulo);letter-spacing:.02em}
 .marca img{width:34px;height:34px;border-radius:50%;display:block}
 .nav{display:flex;gap:22px;margin-left:auto;align-items:center}
-.nav a{color:var(--apagado);text-decoration:none;font-weight:600;font-size:15px}
+.nav a{white-space:nowrap;color:var(--apagado);text-decoration:none;font-weight:600;font-size:15px}
 .nav a:hover{color:var(--texto)}
 .botao{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:10px;font:600 15px var(--f-texto);text-decoration:none;border:1px solid transparent;cursor:pointer}
 .botao.primario{background:var(--guardiao);color:#06101f}
@@ -61,7 +61,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .botao.secundario{border-color:var(--borda);color:var(--texto);background:transparent}
 .botao.secundario:hover{border-color:var(--apagado)}
 .botao[aria-disabled="true"]{background:#1a2333;color:var(--apagado);border-color:var(--borda);cursor:not-allowed}
-@media (max-width:720px){.nav a.so-largo{display:none}}
+@media (max-width:920px){.nav a.so-largo{display:none}}
 
 
 .rodape{border-top:1px solid var(--borda)}
@@ -105,6 +105,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
       <a class="so-largo" href="/#recursos">Recursos</a>
       <a class="so-largo" href="/#planos">Planos</a>
       <a class="so-largo" href="/#duvidas">Dúvidas</a>
+      <a class="so-largo" href="como-configurar">Configurar</a>
       <a class="botao primario" href="https://discord.com/oauth2/authorize?client_id=1519316387611283587">Adicionar ao Discord</a>
     </nav>
   </div>
@@ -206,6 +207,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
     <nav class="links" aria-label="Links legais e suporte">
       <a href="termos">Termos de Uso</a>
       <a href="privacidade">Política de Privacidade</a>
+      <a href="como-configurar">Como configurar</a>
       <a href="https://discord.gg/Gdrckvm72r">Suporte</a>
     </nav>
   </div>

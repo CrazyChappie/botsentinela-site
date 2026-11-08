@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Política de Privacidade · Sentinela</title>
+<meta name="description" content="Política de Privacidade do Sentinela: quais dados o bot guarda, por quanto tempo e seus direitos.">
+<link rel="canonical" href="https://botsentinela.com.br/privacidade">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sentinela">
+<meta property="og:title" content="Política de Privacidade · Sentinela">
+<meta property="og:description" content="Política de Privacidade do Sentinela: quais dados o bot guarda, por quanto tempo e seus direitos.">
+<meta property="og:url" content="https://botsentinela.com.br/privacidade">
+<meta property="og:image" content="https://botsentinela.com.br/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#8f7dff">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --noite:#0b1018;       /* fundo */
+  --muralha:#121a26;     /* superfícies */
+  --borda:#223047;
+  --texto:#e6ebf2;
+  --apagado:#9aa7ba;
+  --vigia:#c7cdd6;       /* plano grátis */
+  --guardiao:#4f8ef7;    /* plano azul */
+  --sentinela:#f0b232;   /* plano dourado */
+  --marca:#8f7dff;       /* violeta do avatar, com parcimônia */
+  --discord:#313338;
+  --discord-card:#2b2d31;
+  --f-titulo:"Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --f-texto:"Manrope", "Segoe UI", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--noite);color:var(--texto);font:16px/1.6 var(--f-texto);-webkit-font-smoothing:antialiased}
+a{color:var(--guardiao)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--marca);outline-offset:3px;border-radius:6px}
+.faixa{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.miolo{max-width:1120px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-titulo);line-height:1.15;text-wrap:balance;margin:0}
+.rotulo{font:600 12px/1 var(--f-titulo);letter-spacing:.14em;text-transform:uppercase;color:var(--marca)}
+
+/* topo */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--noite)}
+.topo{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:color-mix(in srgb, var(--noite) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--borda)}
+.topo .miolo{display:flex;align-items:center;gap:20px;padding-block:14px}
+.marca{display:flex;align-items:center;gap:10px;color:var(--texto);text-decoration:none;font:700 20px var(--f-titulo);letter-spacing:.02em}
+.marca img{width:34px;height:34px;border-radius:50%;display:block}
+.nav{display:flex;gap:22px;margin-left:auto;align-items:center}
+.nav a{color:var(--apagado);text-decoration:none;font-weight:600;font-size:15px}
+.nav a:hover{color:var(--texto)}
+.botao{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:10px;font:600 15px var(--f-texto);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.botao.primario{background:var(--guardiao);color:#06101f}
+.botao.primario:hover{background:#6aa0ff}
+.botao.secundario{border-color:var(--borda);color:var(--texto);background:transparent}
+.botao.secundario:hover{border-color:var(--apagado)}
+.botao[aria-disabled="true"]{background:#1a2333;color:var(--apagado);border-color:var(--borda);cursor:not-allowed}
+@media (max-width:720px){.nav a.so-largo{display:none}}
+
+
+.rodape{border-top:1px solid var(--borda)}
+.rodape .miolo{padding-block:36px;display:grid;grid-template-columns:1.4fr 1fr;gap:24px;font-size:14px;color:var(--apagado)}
+@media (max-width:760px){.rodape .miolo{grid-template-columns:1fr}}
+.rodape .links{display:flex;flex-wrap:wrap;gap:10px 20px;justify-content:flex-end;align-content:start}
+@media (max-width:760px){.rodape .links{justify-content:flex-start}}
+.rodape .links a{color:var(--texto);text-decoration:none;font-weight:600}
+.rodape .links a:hover{color:var(--guardiao)}
+.rodape p{margin:4px 0}
+
+.doc .miolo{max-width:780px;padding-block:48px 64px}
+.doc h1{font-size:clamp(30px,4.6vw,44px);font-weight:700;margin-bottom:12px}
+.doc h2{font-size:22px;font-weight:600;margin:40px 0 10px;scroll-margin-top:90px}
+.doc p,.doc li{color:#cdd5e1}
+.doc strong{color:var(--texto)}
+.doc ul{padding-left:22px}
+.doc li{margin:6px 0}
+.doc table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+.doc th,.doc td{border:1px solid var(--borda);padding:10px 12px;text-align:left;vertical-align:top}
+.doc th{background:var(--muralha);font-family:var(--f-titulo);font-weight:600}
+.voltar{display:inline-block;margin-bottom:24px;color:var(--apagado);text-decoration:none;font-weight:600;font-size:14px}
+.voltar:hover{color:var(--texto)}
+.indice{background:var(--muralha);border:1px solid var(--borda);border-radius:12px;padding:16px 20px;margin:24px 0 8px;font-size:15px}
+.indice li{margin:0 0 8px;break-inside:avoid}
+.indice ol{margin:10px 0 0;padding-left:22px;columns:2;column-gap:28px}
+@media (max-width:600px){.indice ol{columns:1}}
+.indice a{color:var(--apagado);text-decoration:none}.indice a:hover{color:var(--texto)}
+.outro{margin-top:48px;padding-top:20px;border-top:1px solid var(--borda);font-size:15px}
+
+</style>
+</head>
+<body style="margin:0">
+<header class="topo faixa">
+  <div class="miolo">
+    <a class="marca" href="/" aria-label="Sentinela, início">
+      <img src="logo.webp" alt="" width="34" height="34">
+      Sentinela
+    </a>
+    <nav class="nav" aria-label="Seções">
+      <a class="so-largo" href="/#recursos">Recursos</a>
+      <a class="so-largo" href="/#planos">Planos</a>
+      <a class="so-largo" href="/#duvidas">Dúvidas</a>
+      <a class="botao primario" href="https://discord.com/oauth2/authorize?client_id=1519316387611283587">Adicionar ao Discord</a>
+    </nav>
+  </div>
+</header>
+<main class="doc faixa">
+  <article class="miolo">
+    <a class="voltar" href="/">← Voltar ao início</a>
+<h1 id="politica-de-privacidade-do-sentinela">Política de Privacidade do Sentinela</h1>
+<p><strong>Última atualização:</strong> 07/11/2026</p>
+<p>O Sentinela guarda só o necessário para funcionar no seu servidor e para cobrar os planos, seguindo a Lei Geral de Proteção de Dados (LGPD).</p>
+<nav class="indice" aria-label="Seções"><strong>Nesta página</strong><ol><li><a href="#1-quem-cuida-dos-dados">Quem cuida dos dados</a></li><li><a href="#2-quais-dados-guardamos">Quais dados guardamos</a></li><li><a href="#3-base-legal">Base legal</a></li><li><a href="#4-com-quem-compartilhamos">Com quem compartilhamos</a></li><li><a href="#5-por-quanto-tempo">Por quanto tempo</a></li><li><a href="#6-seus-direitos">Seus direitos</a></li><li><a href="#7-seguranca">Segurança</a></li><li><a href="#8-menores-de-idade">Menores de idade</a></li><li><a href="#9-mudancas">Mudanças</a></li></ol></nav><h2 id="1-quem-cuida-dos-dados">1. Quem cuida dos dados</h2>
+<p>Felipe Pereira dos Santos, pessoa física, CPF 020.833.016-09. Contato para assuntos de privacidade: contato@botsentinela.com.br.</p>
+<h2 id="2-quais-dados-guardamos">2. Quais dados guardamos</h2>
+<table>
+<thead>
+<tr>
+<th>Dado</th>
+<th>De onde vem</th>
+<th>Para quê</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IDs do servidor, canais, cargos e membros do Discord</td>
+<td>Discord</td>
+<td>Fazer as funções configuradas funcionarem</td>
+</tr>
+<tr>
+<td>Nome e avatar de membros</td>
+<td>Discord</td>
+<td>Mostrar cartão, ranking, /perfil e logs</td>
+</tr>
+<tr>
+<td>XP, nível, tempo em voz, conquistas e fundo escolhido</td>
+<td>Uso do bot</td>
+<td>Sistema de níveis, ranking e /perfil</td>
+</tr>
+<tr>
+<td>"Sobre mim" do /perfil</td>
+<td>O próprio membro</td>
+<td>Mostrar no /perfil</td>
+</tr>
+<tr>
+<td>Configurações do servidor (banner, rodapé, cor, mensagens, canais)</td>
+<td>Administradores</td>
+<td>Personalizar o bot no servidor</td>
+</tr>
+<tr>
+<td>Registros de moderação (advertências, ações dos administradores)</td>
+<td>Uso do bot</td>
+<td>Histórico e Logs Administrativos</td>
+</tr>
+<tr>
+<td>E-mail e dados do pedido (plano, período, valor, status)</td>
+<td>Quem assina</td>
+<td>Cobrança, recibos e suporte</td>
+</tr>
+</tbody>
+</table>
+<p>O Sentinela lê as mensagens dos servidores só para contar XP e detectar spam e flood. O texto das mensagens não é guardado para isso.</p>
+<p>Também guardamos: o motivo escrito nas advertências, as inscrições e os ganhadores de sorteios e quem usou cada código promocional. Não guardamos endereço IP.</p>
+<p>Não guardamos dados de cartão: eles ficam com o Mercado Pago.</p>
+<h2 id="3-base-legal">3. Base legal</h2>
+<ul>
+<li><strong>Execução do contrato:</strong> para entregar o plano contratado e cobrar.</li>
+<li><strong>Legítimo interesse:</strong> para as funções que os administradores do servidor ligam (níveis, logs, proteção).</li>
+<li><strong>Cumprimento de obrigação legal:</strong> para guardar registros de pagamento pelo prazo que a lei exige.</li>
+</ul>
+<h2 id="4-com-quem-compartilhamos">4. Com quem compartilhamos</h2>
+<ul>
+<li><strong>Discord:</strong> a plataforma onde o bot funciona.</li>
+<li><strong>Mercado Pago:</strong> processa os pagamentos.</li>
+<li><strong>Provedores de infraestrutura:</strong> servidor em nuvem onde o bot roda, rede que protege o site e armazenamento dos backups.</li>
+</ul>
+<p>Não vendemos dados e não usamos dados para publicidade.</p>
+<h2 id="5-por-quanto-tempo">5. Por quanto tempo</h2>
+<ul>
+<li>Dados de um servidor ficam enquanto o Sentinela estiver nele. Quando o bot sai, os dados do servidor são apagados 90 dias depois (se o bot voltar antes disso, eles continuam).</li>
+<li>Dados apagados podem continuar nas cópias de segurança (backups) por até 90 dias, até essas cópias serem substituídas. Inscrições de sorteios encerrados ficam 180 dias.</li>
+<li>Registros de pagamento ficam pelo prazo exigido pela lei fiscal.</li>
+</ul>
+<h2 id="6-seus-direitos">6. Seus direitos</h2>
+<p>Você pode pedir para saber quais dados temos sobre você, corrigir, apagar ou levar seus dados (LGPD, art. 18). Para apagar seu XP ou suas advertências num servidor, use <code>/sentinela_privacidade</code>. Para o resto, peça pelo contato@botsentinela.com.br ou pelo suporte na Base Sentinela. Respondemos em até 15 dias.</p>
+<h2 id="7-seguranca">7. Segurança</h2>
+<p>Os dados ficam num servidor com acesso restrito, com cópias de segurança criptografadas guardadas fora do servidor principal. Pagamentos são verificados com assinatura digital do Mercado Pago.</p>
+<h2 id="8-menores-de-idade">8. Menores de idade</h2>
+<p>O Sentinela segue a idade mínima do Discord. Planos pagos só podem ser contratados por maiores de 18 anos ou com autorização de um responsável.</p>
+<h2 id="9-mudancas">9. Mudanças</h2>
+<p>Quando esta política mudar, a data no topo muda e as mudanças importantes são avisadas na Base Sentinela.</p>
+    <p class="outro">Veja também: <a href="termos">Termos de Uso</a>. Dúvidas: <a href="mailto:contato@botsentinela.com.br">contato@botsentinela.com.br</a> ou no <a href="https://discord.gg/Gdrckvm72r">servidor de suporte</a>.</p>
+  </article>
+</main>
+<footer class="rodape faixa">
+  <div class="miolo">
+    <div>
+      <p style="font:700 18px var(--f-titulo);color:var(--texto)">Sentinela</p>
+      <p>Seu servidor sob controle.</p>
+    </div>
+    <nav class="links" aria-label="Links legais e suporte">
+      <a href="termos">Termos de Uso</a>
+      <a href="privacidade">Política de Privacidade</a>
+      <a href="https://discord.gg/Gdrckvm72r">Suporte</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

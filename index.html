@@ -94,6 +94,17 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .grupo li{color:var(--apagado)}
 .grupo li b{color:var(--texto);font-weight:600}
 
+
+/* em ação */
+.galeria{display:grid;gap:20px}
+.galeria .duas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.galeria .tres{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;align-items:start}
+@media (max-width:860px){.galeria .duas,.galeria .tres{grid-template-columns:1fr}}
+.galeria figure{margin:0;min-width:0}
+.galeria img{width:100%;height:auto;display:block;border-radius:12px;border:1px solid var(--borda);background:#313338}
+.galeria figcaption{margin-top:10px;color:var(--apagado);font-size:14px}
+.galeria figcaption b{color:var(--texto);font-weight:600}
+
 /* planos */
 .planos{background:var(--muralha);border-block:1px solid var(--borda)}
 .fundador{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;border:1px solid color-mix(in srgb, var(--sentinela) 45%, var(--borda));background:color-mix(in srgb, var(--sentinela) 7%, transparent);border-radius:12px;padding:14px 18px;margin-bottom:28px}
@@ -161,6 +172,7 @@ code{font-family:ui-monospace, "Cascadia Mono", Menlo, monospace;background:#1a2
     </a>
     <nav class="nav" aria-label="Seções">
       <a class="so-largo" href="#recursos">Recursos</a>
+      <a class="so-largo" href="#em-acao">Em ação</a>
       <a class="so-largo" href="#planos">Planos</a>
       <a class="so-largo" href="#duvidas">Dúvidas</a>
       <a class="botao primario" href="https://discord.com/oauth2/authorize?client_id=1519316387611283587">Adicionar ao Discord</a>
@@ -236,6 +248,30 @@ code{font-family:ui-monospace, "Cascadia Mono", Menlo, monospace;background:#1a2
             <li><b>/perfil</b> com fundos, insígnias e "Sobre mim".</li>
             <li><b>Sorteios</b> com botão de participar.</li>
           </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="secao faixa" id="em-acao" style="padding-top:0">
+    <div class="miolo">
+      <p class="rotulo">Em ação</p>
+      <h2>Veja como fica no seu servidor.</h2>
+      <p class="intro">Telas reais do Sentinela, com um membro de exemplo.</p>
+      <div class="galeria">
+        <div class="duas">
+          <figure><img src="perfil-fenix.webp" alt="Cartão do /perfil com fundo de fênix, nível, ranking e Sobre mim" width="800" height="391" loading="lazy"><figcaption><b>/perfil</b> com fundo, nível, ranking, insígnias e "Sobre mim".</figcaption></figure>
+          <figure><img src="perfil-floresta.webp" alt="Cartão do /perfil com fundo de floresta encantada" width="800" height="391" loading="lazy"><figcaption><b>Fundos para escolher</b>: grátis, por conquista e da Coleção.</figcaption></figure>
+        </div>
+        <div class="tres">
+          <figure><img src="boas-vindas.webp" alt="Mensagem de boas-vindas com cartão do novo membro" width="800" height="488" loading="lazy"><figcaption><b>Boas-vindas</b> com cartão e cargo automático.</figcaption></figure>
+          <figure><img src="verificacao.webp" alt="Painel de verificação com botão Verificar" width="800" height="538" loading="lazy"><figcaption><b>Verificação</b> com um toque.</figcaption></figure>
+          <figure><img src="cargos-por-botao.webp" alt="Menu de cargos por botão: Jogos, Música e Estudos" width="800" height="666" loading="lazy"><figcaption><b>Cargos por botão</b> para o membro escolher.</figcaption></figure>
+        </div>
+        <div class="duas">
+          <figure><img src="subiu-de-nivel.webp" alt="Aviso de subida de nível com cartão de XP" width="800" height="601" loading="lazy"><figcaption><b>Subiu de nível</b>: aviso com o cartão de XP.</figcaption></figure>
+          <figure><img src="sorteio.webp" alt="Anúncio de sorteio com botões Participar e Compartilhar" width="800" height="718" loading="lazy"><figcaption><b>Sorteios</b> com requisitos e botão de participar.</figcaption></figure>
         </div>
       </div>
     </div>
@@ -337,9 +373,9 @@ code{font-family:ui-monospace, "Cascadia Mono", Menlo, monospace;background:#1a2
 <footer class="rodape faixa">
   <div class="miolo">
     <div>
-      <p><b style="color:var(--texto)">Sentinela</b> é mantido por Felipe Pereira dos Santos, pessoa física, CPF 020.833.016-09.</p>
-      <p>Avenida Padre Airton Freire de Lima, 45, Guanabara, Betim/MG, CEP 32667-075.</p>
-      <p>Contato: contato@botsentinela.com.br</p>
+      <p style="font:700 18px var(--f-titulo);color:var(--texto)">Sentinela</p>
+      <p>Seu servidor sob controle.</p>
+      <p style="font-size:13px">Responsável e contato: veja os <a href="https://gist.github.com/CrazyChappie/a7096dd562ca0e5d9ef5de8a4dfaf159" style="color:var(--apagado)">Termos de Uso</a>.</p>
     </div>
     <nav class="links" aria-label="Links legais e suporte">
       <a href="https://gist.github.com/CrazyChappie/a7096dd562ca0e5d9ef5de8a4dfaf159">Termos de Uso</a>

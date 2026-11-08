@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Comandos · Sentinela</title>
+<meta name="description" content="Lista dos comandos do Sentinela para Discord, com o que cada um faz e quem pode usar.">
+<link rel="canonical" href="https://botsentinela.com.br/comandos">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sentinela">
+<meta property="og:title" content="Comandos · Sentinela">
+<meta property="og:description" content="Lista dos comandos do Sentinela para Discord, com o que cada um faz e quem pode usar.">
+<meta property="og:url" content="https://botsentinela.com.br/comandos">
+<meta property="og:image" content="https://botsentinela.com.br/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#8f7dff">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --noite:#0b1018;       /* fundo */
+  --muralha:#121a26;     /* superfícies */
+  --borda:#223047;
+  --texto:#e6ebf2;
+  --apagado:#9aa7ba;
+  --vigia:#c7cdd6;       /* plano grátis */
+  --guardiao:#4f8ef7;    /* plano azul */
+  --sentinela:#f0b232;   /* plano dourado */
+  --marca:#8f7dff;       /* violeta do avatar, com parcimônia */
+  --discord:#313338;
+  --discord-card:#2b2d31;
+  --f-titulo:"Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --f-texto:"Manrope", "Segoe UI", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--noite);color:var(--texto);font:16px/1.6 var(--f-texto);-webkit-font-smoothing:antialiased}
+a{color:var(--guardiao)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--marca);outline-offset:3px;border-radius:6px}
+.faixa{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.miolo{max-width:1120px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-titulo);line-height:1.15;text-wrap:balance;margin:0}
+.rotulo{font:600 12px/1 var(--f-titulo);letter-spacing:.14em;text-transform:uppercase;color:var(--marca)}
+
+/* topo */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--noite)}
+.topo{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:color-mix(in srgb, var(--noite) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--borda)}
+.topo .miolo{display:flex;align-items:center;gap:20px;padding-block:14px}
+.marca{display:flex;align-items:center;gap:10px;color:var(--texto);text-decoration:none;font:700 20px var(--f-titulo);letter-spacing:.02em}
+.marca img{width:34px;height:34px;border-radius:50%;display:block}
+.nav{display:flex;gap:22px;margin-left:auto;align-items:center}
+.nav a{white-space:nowrap;color:var(--apagado);text-decoration:none;font-weight:600;font-size:15px}
+.nav a:hover{color:var(--texto)}
+.botao{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:10px;font:600 15px var(--f-texto);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.botao.primario{background:var(--guardiao);color:#06101f}
+.botao.primario:hover{background:#6aa0ff}
+.botao.secundario{border-color:var(--borda);color:var(--texto);background:transparent}
+.botao.secundario:hover{border-color:var(--apagado)}
+.botao[aria-disabled="true"]{background:#1a2333;color:var(--apagado);border-color:var(--borda);cursor:not-allowed}
+@media (max-width:920px){.nav a.so-largo{display:none}}
+
+
+.rodape{border-top:1px solid var(--borda)}
+.rodape .miolo{padding-block:36px;display:grid;grid-template-columns:1.4fr 1fr;gap:24px;font-size:14px;color:var(--apagado)}
+@media (max-width:760px){.rodape .miolo{grid-template-columns:1fr}}
+.rodape .links{display:flex;flex-wrap:wrap;gap:10px 20px;justify-content:flex-end;align-content:start}
+@media (max-width:760px){.rodape .links{justify-content:flex-start}}
+.rodape .links a{color:var(--texto);text-decoration:none;font-weight:600}
+.rodape .links a:hover{color:var(--guardiao)}
+.rodape p{margin:4px 0}
+
+.doc .miolo{max-width:780px;padding-block:48px 64px}
+.doc h1{font-size:clamp(30px,4.6vw,44px);font-weight:700;margin-bottom:12px}
+.doc h2{font-size:22px;font-weight:600;margin:40px 0 10px;scroll-margin-top:90px}
+.doc p,.doc li{color:#cdd5e1}
+.doc strong{color:var(--texto)}
+.doc ul{padding-left:22px}
+.doc li{margin:6px 0}
+.doc table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+.doc th,.doc td{border:1px solid var(--borda);padding:10px 12px;text-align:left;vertical-align:top}
+.doc th{background:var(--muralha);font-family:var(--f-titulo);font-weight:600}
+.voltar{display:inline-block;margin-bottom:24px;color:var(--apagado);text-decoration:none;font-weight:600;font-size:14px}
+.voltar:hover{color:var(--texto)}
+.indice{background:var(--muralha);border:1px solid var(--borda);border-radius:12px;padding:16px 20px;margin:24px 0 8px;font-size:15px}
+.indice li{margin:0 0 8px;break-inside:avoid}
+.indice ol{margin:10px 0 0;padding-left:22px;columns:2;column-gap:28px}
+@media (max-width:600px){.indice ol{columns:1}}
+.indice a{color:var(--apagado);text-decoration:none}.indice a:hover{color:var(--texto)}
+.outro{margin-top:48px;padding-top:20px;border-top:1px solid var(--borda);font-size:15px}
+
+
+.passo{display:grid;grid-template-columns:44px 1fr;gap:16px;margin:28px 0}
+.num{width:44px;height:44px;border-radius:50%;background:var(--muralha);border:1px solid var(--borda);display:flex;align-items:center;justify-content:center;font:700 18px var(--f-titulo);color:var(--marca)}
+.passo h2{margin:6px 0 8px}
+.dica{background:var(--muralha);border:1px solid var(--borda);border-left:4px solid var(--guardiao);border-radius:10px;padding:14px 16px;margin:14px 0;font-size:15px}
+.dica.ouro{border-left-color:var(--sentinela)}
+.doc .botoes{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+code{background:var(--muralha);border:1px solid var(--borda);border-radius:6px;padding:1px 6px;font-size:.92em}
+
+.cmd{background:var(--muralha);border:1px solid var(--borda);border-radius:12px;padding:16px 18px;margin:14px 0}
+.cmd h3{margin:0 0 6px;font:600 19px var(--f-titulo)}
+.cmd h3 code{font-size:17px;color:var(--texto);background:none;border:0;padding:0}
+.cmd p{margin:4px 0;font-size:15px}
+.etq{display:inline-block;font-size:12.5px;font-weight:600;border-radius:999px;padding:2px 10px;margin:6px 6px 0 0;background:#1b2433;color:var(--apagado);border:1px solid var(--borda)}
+.ver{border-left:3px solid var(--borda);padding:2px 0 2px 18px;margin:26px 0}
+.ver.breve{border-left-color:var(--marca)}
+.ver h3{margin:0 0 6px;font:600 20px var(--f-titulo)}
+.ver h3 small{font:500 14px var(--f-texto,inherit);color:var(--apagado);margin-left:8px}
+.ver ul{margin:6px 0 0}
+.selo{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--marca);margin-left:8px}
+</style>
+</head>
+<body style="margin:0">
+<header class="topo faixa">
+  <div class="miolo">
+    <a class="marca" href="/" aria-label="Sentinela, início">
+      <img src="logo.webp" alt="" width="34" height="34">
+      Sentinela
+    </a>
+    <nav class="nav" aria-label="Seções">
+      <a class="so-largo" href="/#recursos">Recursos</a>
+      <a class="so-largo" href="/#planos">Planos</a>
+      <a class="so-largo" href="/#duvidas">Dúvidas</a>
+      <a class="so-largo" href="como-configurar">Configurar</a>
+      <a class="botao primario" href="https://discord.com/oauth2/authorize?client_id=1519316387611283587">Adicionar ao Discord</a>
+    </nav>
+  </div>
+</header>
+<main class="doc faixa">
+  <article class="miolo">
+    <a class="voltar" href="/">← Voltar ao início</a>
+<h1>Comandos do Sentinela</h1>
+<p>O Sentinela tem poucos comandos: quase tudo se configura pelos botões do <code>/painel</code>. As descrições abaixo são as mesmas que aparecem no Discord.</p>
+<h2>Painel</h2>
+<div class="cmd"><h3><code>/painel</code></h3><p>🛡️ Abre o Centro de Controle Central do Sentinela.</p><span class="etq">Só administradores</span><span class="etq">🔦 Vigia · cada recurso mostra o plano que precisa</span></div>
+<p>A <strong>Proteção</strong> (Anti-Spam, Anti-Raid, Anti-Bot, Advertências e Logs Administrativos) e a <strong>Organização</strong> (Auto Cargo, Verificação, Nitro &amp; Tags, Logs gerais, Cargos por botão e Painéis fixos) não têm comando próprio: tudo fica no <code>/painel</code>.</p>
+<h2>Engajamento</h2>
+<div class="cmd"><h3><code>/perfil</code></h3><p>👤 Mostra o seu perfil (ou o de outro membro).</p><p><strong>Opções:</strong> <code>membro</code> (opcional): de quem ver o perfil; vazio mostra o seu.</p><span class="etq">Todos os membros</span><span class="etq">🔦 Vigia · alguns fundos dependem do plano</span></div>
+<p style="font-size:15px">Fundos do /perfil por plano: Grade digital, Hexágonos e Crepúsculo no 🛡️ Guardião; Coleção e Países no 👑 Sentinela.</p>
+<div class="cmd"><h3><code>/dar_xp</code></h3><p>🛡️ Adiciona uma quantidade de XP a um membro específico.</p><p><strong>Opções:</strong> <code>membro</code> e <code>quantidade</code> (obrigatórias).</p><span class="etq">Só administradores</span><span class="etq">🔦 Vigia</span></div><div class="cmd"><h3><code>/remover_xp</code></h3><p>🛡️ Remove uma quantidade de XP de um membro específico.</p><p><strong>Opções:</strong> <code>membro</code> e <code>quantidade</code> (obrigatórias).</p><span class="etq">Só administradores</span><span class="etq">🔦 Vigia</span></div>
+<p style="font-size:15px">No chat também funcionam <code>!rank</code> e <code>!top</code>, para ver a sua posição e os 10 primeiros.</p>
+<h2>Planos</h2>
+<div class="cmd"><h3><code>/premium_status</code></h3><p>Consulta o plano deste servidor.</p><span class="etq">Só administradores</span><span class="etq">🔦 Vigia</span></div><div class="cmd"><h3><code>/premium_codigo_resgatar</code></h3><p>Resgata um código promocional de plano neste servidor.</p><p><strong>Opções:</strong> <code>codigo</code> (obrigatória): o código promocional.</p><span class="etq">Só administradores</span><span class="etq">🔦 Vigia</span></div>
+<p class="outro">Primeira vez? Veja <a href="como-configurar">como configurar</a> em 6 passos.</p>
+  </article>
+</main>
+<footer class="rodape faixa">
+  <div class="miolo">
+    <div>
+      <p style="font:700 18px var(--f-titulo);color:var(--texto)">Sentinela</p>
+      <p>Seu servidor sob controle.</p>
+    </div>
+    <nav class="links" aria-label="Links legais e suporte">
+      <a href="termos">Termos de Uso</a>
+      <a href="privacidade">Política de Privacidade</a>
+      <a href="como-configurar">Como configurar</a>
+      <a href="comandos">Comandos</a>
+      <a href="novidades">Novidades</a>
+      <a href="https://discord.gg/Gdrckvm72r">Suporte</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Novidades · Sentinela</title>
+<meta name="description" content="O que mudou em cada versão do Sentinela, bot para Discord.">
+<link rel="canonical" href="https://botsentinela.com.br/novidades">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sentinela">
+<meta property="og:title" content="Novidades · Sentinela">
+<meta property="og:description" content="O que mudou em cada versão do Sentinela, bot para Discord.">
+<meta property="og:url" content="https://botsentinela.com.br/novidades">
+<meta property="og:image" content="https://botsentinela.com.br/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#8f7dff">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --noite:#0b1018;       /* fundo */
+  --muralha:#121a26;     /* superfícies */
+  --borda:#223047;
+  --texto:#e6ebf2;
+  --apagado:#9aa7ba;
+  --vigia:#c7cdd6;       /* plano grátis */
+  --guardiao:#4f8ef7;    /* plano azul */
+  --sentinela:#f0b232;   /* plano dourado */
+  --marca:#8f7dff;       /* violeta do avatar, com parcimônia */
+  --discord:#313338;
+  --discord-card:#2b2d31;
+  --f-titulo:"Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --f-texto:"Manrope", "Segoe UI", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--noite);color:var(--texto);font:16px/1.6 var(--f-texto);-webkit-font-smoothing:antialiased}
+a{color:var(--guardiao)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--marca);outline-offset:3px;border-radius:6px}
+.faixa{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.miolo{max-width:1120px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-titulo);line-height:1.15;text-wrap:balance;margin:0}
+.rotulo{font:600 12px/1 var(--f-titulo);letter-spacing:.14em;text-transform:uppercase;color:var(--marca)}
+
+/* topo */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--noite)}
+.topo{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:color-mix(in srgb, var(--noite) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--borda)}
+.topo .miolo{display:flex;align-items:center;gap:20px;padding-block:14px}
+.marca{display:flex;align-items:center;gap:10px;color:var(--texto);text-decoration:none;font:700 20px var(--f-titulo);letter-spacing:.02em}
+.marca img{width:34px;height:34px;border-radius:50%;display:block}
+.nav{display:flex;gap:22px;margin-left:auto;align-items:center}
+.nav a{white-space:nowrap;color:var(--apagado);text-decoration:none;font-weight:600;font-size:15px}
+.nav a:hover{color:var(--texto)}
+.botao{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:10px;font:600 15px var(--f-texto);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.botao.primario{background:var(--guardiao);color:#06101f}
+.botao.primario:hover{background:#6aa0ff}
+.botao.secundario{border-color:var(--borda);color:var(--texto);background:transparent}
+.botao.secundario:hover{border-color:var(--apagado)}
+.botao[aria-disabled="true"]{background:#1a2333;color:var(--apagado);border-color:var(--borda);cursor:not-allowed}
+@media (max-width:920px){.nav a.so-largo{display:none}}
+
+
+.rodape{border-top:1px solid var(--borda)}
+.rodape .miolo{padding-block:36px;display:grid;grid-template-columns:1.4fr 1fr;gap:24px;font-size:14px;color:var(--apagado)}
+@media (max-width:760px){.rodape .miolo{grid-template-columns:1fr}}
+.rodape .links{display:flex;flex-wrap:wrap;gap:10px 20px;justify-content:flex-end;align-content:start}
+@media (max-width:760px){.rodape .links{justify-content:flex-start}}
+.rodape .links a{color:var(--texto);text-decoration:none;font-weight:600}
+.rodape .links a:hover{color:var(--guardiao)}
+.rodape p{margin:4px 0}
+
+.doc .miolo{max-width:780px;padding-block:48px 64px}
+.doc h1{font-size:clamp(30px,4.6vw,44px);font-weight:700;margin-bottom:12px}
+.doc h2{font-size:22px;font-weight:600;margin:40px 0 10px;scroll-margin-top:90px}
+.doc p,.doc li{color:#cdd5e1}
+.doc strong{color:var(--texto)}
+.doc ul{padding-left:22px}
+.doc li{margin:6px 0}
+.doc table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+.doc th,.doc td{border:1px solid var(--borda);padding:10px 12px;text-align:left;vertical-align:top}
+.doc th{background:var(--muralha);font-family:var(--f-titulo);font-weight:600}
+.voltar{display:inline-block;margin-bottom:24px;color:var(--apagado);text-decoration:none;font-weight:600;font-size:14px}
+.voltar:hover{color:var(--texto)}
+.indice{background:var(--muralha);border:1px solid var(--borda);border-radius:12px;padding:16px 20px;margin:24px 0 8px;font-size:15px}
+.indice li{margin:0 0 8px;break-inside:avoid}
+.indice ol{margin:10px 0 0;padding-left:22px;columns:2;column-gap:28px}
+@media (max-width:600px){.indice ol{columns:1}}
+.indice a{color:var(--apagado);text-decoration:none}.indice a:hover{color:var(--texto)}
+.outro{margin-top:48px;padding-top:20px;border-top:1px solid var(--borda);font-size:15px}
+
+
+.passo{display:grid;grid-template-columns:44px 1fr;gap:16px;margin:28px 0}
+.num{width:44px;height:44px;border-radius:50%;background:var(--muralha);border:1px solid var(--borda);display:flex;align-items:center;justify-content:center;font:700 18px var(--f-titulo);color:var(--marca)}
+.passo h2{margin:6px 0 8px}
+.dica{background:var(--muralha);border:1px solid var(--borda);border-left:4px solid var(--guardiao);border-radius:10px;padding:14px 16px;margin:14px 0;font-size:15px}
+.dica.ouro{border-left-color:var(--sentinela)}
+.doc .botoes{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+code{background:var(--muralha);border:1px solid var(--borda);border-radius:6px;padding:1px 6px;font-size:.92em}
+
+.cmd{background:var(--muralha);border:1px solid var(--borda);border-radius:12px;padding:16px 18px;margin:14px 0}
+.cmd h3{margin:0 0 6px;font:600 19px var(--f-titulo)}
+.cmd h3 code{font-size:17px;color:var(--texto);background:none;border:0;padding:0}
+.cmd p{margin:4px 0;font-size:15px}
+.etq{display:inline-block;font-size:12.5px;font-weight:600;border-radius:999px;padding:2px 10px;margin:6px 6px 0 0;background:#1b2433;color:var(--apagado);border:1px solid var(--borda)}
+.ver{border-left:3px solid var(--borda);padding:2px 0 2px 18px;margin:26px 0}
+.ver.breve{border-left-color:var(--marca)}
+.ver h3{margin:0 0 6px;font:600 20px var(--f-titulo)}
+.ver h3 small{font:500 14px var(--f-texto,inherit);color:var(--apagado);margin-left:8px}
+.ver ul{margin:6px 0 0}
+.selo{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--marca);margin-left:8px}
+</style>
+</head>
+<body style="margin:0">
+<header class="topo faixa">
+  <div class="miolo">
+    <a class="marca" href="/" aria-label="Sentinela, início">
+      <img src="logo.webp" alt="" width="34" height="34">
+      Sentinela
+    </a>
+    <nav class="nav" aria-label="Seções">
+      <a class="so-largo" href="/#recursos">Recursos</a>
+      <a class="so-largo" href="/#planos">Planos</a>
+      <a class="so-largo" href="/#duvidas">Dúvidas</a>
+      <a class="so-largo" href="como-configurar">Configurar</a>
+      <a class="botao primario" href="https://discord.com/oauth2/authorize?client_id=1519316387611283587">Adicionar ao Discord</a>
+    </nav>
+  </div>
+</header>
+<main class="doc faixa">
+  <article class="miolo">
+    <a class="voltar" href="/">← Voltar ao início</a>
+<h1>Novidades do Sentinela</h1>
+<p>O que mudou em cada versão, do mais novo para o mais antigo. O 🔦 Vigia é grátis; os recursos marcados com 🛡️ Guardião ou 👑 Sentinela fazem parte dos planos.</p>
+<h2>Em breve</h2>
+<div class="ver breve"><h3>Versão 2.36.0<span class="selo">em breve</span></h3><ul><li><strong>⚡ Pagar com Pix</strong>: além do cartão, o plano poderá ser pago com Pix, mensal ou anual.</li><li><strong>🔔 Avisos antes de vencer</strong>: o Sentinela avisa por mensagem privada antes do plano vencer, com o botão para renovar.</li><li><strong>📄 Termos e Privacidade à mão</strong>: os Termos de Uso e a Política de Privacidade aparecem nas telas dos planos e do pagamento.</li><li><strong>🎁 Sorteios de plano</strong>: o anúncio já mostra o plano certo do prêmio desde a primeira mensagem.</li></ul></div>
+<div class="ver breve"><h3>Versão 2.35.0<span class="selo">em breve</span></h3><ul><li><strong>🔄 Trocar de plano</strong>: quem assina poderá subir do 🛡️ Guardião para o 👑 Sentinela, ou voltar, sem cancelar a assinatura.</li><li>A tela mostra o que muda, quando muda e o valor da próxima cobrança antes de confirmar.</li></ul></div>
+<div class="ver breve"><h3>Versão 2.34.0<span class="selo">em breve</span></h3><ul><li><strong>🏅 Vagas de Fundador</strong>: os 50 primeiros servidores que assinarem garantem o preço de lançamento.</li><li>O contador de vagas aparece na tela 💎 Planos.</li><li>Quem é Fundador ganha o selo 🏅 no /painel e uma insígnia especial no /perfil.</li></ul></div>
+<div class="ver breve"><h3>Versão 2.33.0<span class="selo">em breve</span></h3><ul><li><strong>💎 Tela de Planos nova</strong>: a comparação entre 🛡️ Guardião e 👑 Sentinela numa imagem, com os preços.</li><li><strong>💳 Assinatura no cartão</strong>: mensal ou anual (o anual sai com 2 meses grátis), renovando sozinha.</li><li>Quem já assina vê a tela "Sua assinatura", com o plano e a próxima cobrança.</li></ul></div>
+<h2>Já publicadas</h2>
+<div class="ver"><h3>Versão 2.32.2<small>07/11/2026</small></h3><ul><li><strong>⏸️ Pausados mais claros</strong>: com o 🛡️ Guardião, os recursos do 👑 Sentinela aparecem como "disponível no 👑 Sentinela", e não mais como "plano inativo".</li><li>Pequenas correções internas.</li></ul></div>
+<div class="ver"><h3>Versão 2.32.1<small>02/11/2026</small></h3><ul><li><strong>🔒 Cadeados com o plano certo</strong>: as telas dizem qual plano libera cada recurso (🛡️ Guardião ou 👑 Sentinela).</li><li><strong>🖼️ Fundos do /perfil</strong>: os fundos bloqueados mostram quantos são de cada plano.</li><li>Os comandos de barra passam a se atualizar sozinhos no Discord.</li></ul></div>
+<div class="ver"><h3>Versão 2.32.0<small>01/11/2026</small></h3><ul><li><strong>🔦 🛡️ 👑 Planos com nome</strong>: cada servidor agora tem um plano: 🔦 Vigia (grátis), 🛡️ Guardião ou 👑 Sentinela.</li><li>Onde um recurso precisa de plano, o cadeado diz qual: "🔒 Disponível no 🛡️ Guardião".</li><li>Se um plano acabar ou mudar, nada é apagado: o recurso fica pausado e volta junto com o plano.</li><li>Quem já tinha um plano continua com tudo, no 👑 Sentinela.</li></ul></div>
+<div class="ver"><h3>Versão 2.31.5<small>01/11/2026</small></h3><ul><li><strong>🎞️ Faixa no topo do /perfil</strong>: no modo faixa, o cartão usa o banner do servidor (ou o fundo do servidor, sem bordas borradas) (👑 Sentinela).</li><li><strong>🕰️ Fundos de tempo</strong>: o tempo no servidor dos fundos e das insígnias passa a contar desde a chegada do Sentinela.</li></ul></div>
+<div class="ver"><h3>Versão 2.31.4<small>01/11/2026</small></h3><ul><li><strong>⚡ Melhoria de desempenho</strong>: o Sentinela ficou mais leve e estável no dia a dia.</li></ul></div>
+<div class="ver"><h3>Versão 2.31.3<small>31/10/2026</small></h3><ul><li><strong>🎨 Aparência</strong>: a cara do seu servidor nas mensagens do Sentinela, com cor própria, rodapé próprio e um banner no topo das mensagens fixas (👑 Sentinela).</li><li><strong>🎞️ Fundo do servidor em faixa</strong>: o fundo do servidor no /perfil pode aparecer inteiro numa faixa no topo do cartão (👑 Sentinela).</li><li><strong>🏰 Fundo do servidor no lugar certo</strong>: agora fica em Engajamento → 🎨 Aparência.</li><li><strong>🖼️ Fundos do /perfil</strong>: Grade digital, Hexágonos e Crepúsculo passam a ser fundos de plano (🛡️ Guardião). Quem já usava não perde a escolha.</li></ul></div>
+<div class="ver"><h3>Versão 2.31.2<small>30/10/2026</small></h3><ul><li><strong>🖼️ Fundos com arte nova</strong>: os 16 fundos do /perfil ganharam ilustrações.</li><li><strong>🎨 Coleção e 🌎 Países</strong>: 10 fundos novos (Dragão, Fênix, Coração, Emoji, Floresta encantada, Brasil, Argentina, Alemanha, EUA e Portugal) (👑 Sentinela).</li><li><strong>✨ Cartão mais bonito</strong>: o painel do /perfil deixa a arte aparecer mais, sem perder a leitura.</li></ul></div>
+<div class="ver"><h3>Versão 2.31.1<small>30/10/2026</small></h3><ul><li><strong>🔐 Verificação com lugar próprio</strong>: agora é um item da Organização, logo abaixo do Auto Cargo.</li><li><strong>📌 Painéis fixos com visual novo</strong>: regras, comandos e avisos em quadros com a cor do servidor.</li><li><strong>✨ Mais avisos no visual novo</strong>: recompensa de XP, TAG, impulso e sorteio sem participantes.</li><li><strong>🖼️ Cartões sem moldura</strong>: os cartões de nível, de boas-vindas e do /perfil com cantos arredondados.</li></ul></div>
+<div class="ver"><h3>Versão 2.31.0<small>29/10/2026</small></h3><ul><li><strong>✨ Mensagens com visual novo</strong>: verificação, cargos por botão, sorteios novos e o aviso de subir de nível aparecem em quadros com a cor do servidor.</li><li><strong>🖼️ Cartão de boas-vindas</strong>: a entrada de membro nos Logs gerais ganhou uma imagem com avatar, nome e o número do membro.</li><li><strong>📋 Painel mais fácil de ler</strong>: a tela inicial e as categorias com títulos maiores e descrições mais leves.</li><li><strong>🔍 Diagnóstico mais preciso</strong>: o aviso sobre Anexar arquivos só aparece quando essa permissão falta.</li></ul></div>
+<div class="ver"><h3>Versão 2.30.1<small>29/10/2026</small></h3><ul><li><strong>🏰 Fundo do servidor no /perfil</strong>: envie uma imagem do servidor e ela vira um fundo para todos os membros (hoje no 👑 Sentinela).</li><li><strong>🏆 Fundos Pódio, Impulso e Clã</strong>: para quem está no Top 10, impulsiona o servidor ou usa a TAG.</li><li><strong>🔑 Uma permissão a menos</strong>: o Sentinela não pede mais "Criar tópicos privados".</li></ul></div>
+<div class="ver"><h3>Versão 2.30.0<small>29/10/2026</small></h3><ul><li><strong>👤 /perfil</strong>: o seu perfil com fundo, insígnias e Sobre mim; fundos novos por nível e por tempo no servidor.</li><li><strong>📝 Mensagem de nível com {cargo}</strong>: edite em Níveis e Recompensas e mostre o cargo ganho no nível.</li><li><strong>🏆 Top 10 no celular</strong>: nomes maiores e mais fáceis de ler.</li><li><strong>📝 Mensagem da TAG</strong>: agora fica no Nitro &amp; Tags (🛡️ Guardião).</li></ul></div>
+<div class="ver"><h3>Versão 2.29.2<small>29/10/2026</small></h3><ul><li><strong>🏆 Top 10 mais largo</strong>: os 10 primeiros em duas colunas, no !top e no ranking fixo.</li><li><strong>🏷️ Painel TAG</strong>: quem usa a TAG do servidor e os cargos da semana, atualizado sozinho (🛡️ Guardião).</li><li><strong>📣 Painel de Novidades</strong>: as novidades do Sentinela e o sorteio da Base num canal do seu servidor (grátis).</li></ul></div>
+<div class="ver"><h3>Versão 2.29.1<small>24/10/2026</small></h3><ul><li><strong>🏆 Ranking fixo com visual novo</strong>: como subir em cima, o Top 10 grande embaixo e o botão 🏅 Ver o meu.</li><li><strong>📌 Painéis fixos</strong>: o Ranking agora se apaga como os outros painéis.</li><li><strong>🏠 Tela inicial</strong>: os planos ganharam um bloco próprio.</li></ul></div>
+<div class="ver"><h3>Versão 2.29.0<small>23/10/2026</small></h3><ul><li><strong>📌 Painéis fixos</strong>: visual novo e o tipo 🏆 Ranking.</li><li><strong>🎴 Cartão e Ranking mais simples</strong>: o tema vale para tudo, e o cartão e o ranking têm telas próprias.</li><li><strong>🏷️ TAG</strong>: o contador mostra quando foi a última conferência.</li></ul></div>
+<div class="ver"><h3>Versão 2.28.1<small>23/10/2026</small></h3><ul><li><strong>💜 Nitro &amp; Tags e Cargos por botão com visual novo</strong>: configurados direto na tela.</li><li><strong>🏷️ TAG</strong>: contador de quem usa a TAG, opção de manter o cargo mesmo quando o membro tira a TAG e um Sincronizar que mostra antes o que vai fazer.</li></ul></div>
+<div class="ver"><h3>Versão 2.28.0<small>23/10/2026</small></h3><ul><li><strong>🗂️ Organização com visual novo</strong>: Auto Cargo, Verificação e Logs gerais configurados direto na tela.</li><li><strong>📜 Logs gerais</strong>: escolha quais avisos receber, inclusive o de quando um membro tira a TAG.</li></ul></div>
+
+  </article>
+</main>
+<footer class="rodape faixa">
+  <div class="miolo">
+    <div>
+      <p style="font:700 18px var(--f-titulo);color:var(--texto)">Sentinela</p>
+      <p>Seu servidor sob controle.</p>
+    </div>
+    <nav class="links" aria-label="Links legais e suporte">
+      <a href="termos">Termos de Uso</a>
+      <a href="privacidade">Política de Privacidade</a>
+      <a href="como-configurar">Como configurar</a>
+      <a href="comandos">Comandos</a>
+      <a href="novidades">Novidades</a>
+      <a href="https://discord.gg/Gdrckvm72r">Suporte</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

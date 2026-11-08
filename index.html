@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sentinela para Discord</title>
+<meta name="description" content="Sentinela: proteção, organização e níveis para o seu servidor no Discord, em português.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: noite de vigia — faixa de topo, herói com o painel real do bot, recursos em 3 colunas, planos lado a lado, rodapé legal */
+:root{
+  color-scheme: dark;
+  --noite:#0b1018;       /* fundo */
+  --muralha:#121a26;     /* superfícies */
+  --borda:#223047;
+  --texto:#e6ebf2;
+  --apagado:#9aa7ba;
+  --vigia:#c7cdd6;       /* plano grátis */
+  --guardiao:#4f8ef7;    /* plano azul */
+  --sentinela:#f0b232;   /* plano dourado */
+  --marca:#8f7dff;       /* violeta do avatar, com parcimônia */
+  --discord:#313338;
+  --discord-card:#2b2d31;
+  --f-titulo:"Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --f-texto:"Manrope", "Segoe UI", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--noite);color:var(--texto);font:16px/1.6 var(--f-texto);-webkit-font-smoothing:antialiased}
+a{color:var(--guardiao)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--marca);outline-offset:3px;border-radius:6px}
+.faixa{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.miolo{max-width:1120px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-titulo);line-height:1.15;text-wrap:balance;margin:0}
+.rotulo{font:600 12px/1 var(--f-titulo);letter-spacing:.14em;text-transform:uppercase;color:var(--marca)}
+
+/* topo */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--noite)}
+.topo{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:color-mix(in srgb, var(--noite) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--borda)}
+.topo .miolo{display:flex;align-items:center;gap:20px;padding-block:14px}
+.marca{display:flex;align-items:center;gap:10px;color:var(--texto);text-decoration:none;font:700 20px var(--f-titulo);letter-spacing:.02em}
+.marca svg{width:30px;height:30px}
+.nav{display:flex;gap:22px;margin-left:auto;align-items:center}
+.nav a{color:var(--apagado);text-decoration:none;font-weight:600;font-size:15px}
+.nav a:hover{color:var(--texto)}
+.botao{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:10px;font:600 15px var(--f-texto);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.botao.primario{background:var(--guardiao);color:#06101f}
+.botao.primario:hover{background:#6aa0ff}
+.botao.secundario{border-color:var(--borda);color:var(--texto);background:transparent}
+.botao.secundario:hover{border-color:var(--apagado)}
+.botao[aria-disabled="true"]{background:#1a2333;color:var(--apagado);border-color:var(--borda);cursor:not-allowed}
+@media (max-width:720px){.nav a.so-largo{display:none}}
+
+/* herói */
+.heroi .miolo{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding-block:72px 64px}
+.heroi h1{font-size:clamp(36px, 5.4vw, 60px);font-weight:700}
+.heroi h1 em{font-style:normal;color:var(--guardiao)}
+.heroi p.lead{color:var(--apagado);font-size:18px;max-width:52ch;margin:20px 0 28px}
+.acoes{display:flex;flex-wrap:wrap;gap:12px}
+.nota-pt{margin-top:18px;font-size:14px;color:var(--apagado)}
+@media (max-width:900px){.heroi .miolo{grid-template-columns:1fr;padding-block:48px}}
+
+/* painel do discord (mostra o produto real) */
+.discord{background:var(--discord);border-radius:14px;padding:16px;border:1px solid #1f2125;box-shadow:0 24px 60px -24px rgba(0,0,0,.7);min-width:0}
+.msg{display:flex;gap:12px}
+.av{width:40px;height:40px;border-radius:50%;background:#2c2150;flex-shrink:0;display:grid;place-items:center}
+.av svg{width:22px;height:22px}
+.quem{font-size:14px}
+.quem b{color:#f23f43}
+.quem .app{background:#5865f2;color:#fff;font-size:10px;font-weight:700;border-radius:4px;padding:1px 5px;margin-left:6px}
+.quem small{color:#949ba4;margin-left:6px}
+.cartao{margin-top:6px;background:var(--discord-card);border-left:4px solid var(--guardiao);border-radius:8px;padding:14px;display:flex;flex-direction:column;gap:10px;font-size:14px;color:#dbdee1;min-width:0}
+.cartao h3{font:700 17px var(--f-texto);color:#f2f3f5}
+.cartao .linha{display:flex;justify-content:space-between;gap:10px;align-items:center;padding-top:10px;border-top:1px solid #3f4147}
+.cartao .linha b{color:#f2f3f5}
+.cartao .linha span.sub{display:block;color:#a5abb3;font-size:12.5px}
+.mini{background:#5865f2;color:#fff;border-radius:6px;padding:5px 12px;font-size:13px;font-weight:600;white-space:nowrap}
+.barra{color:var(--guardiao);letter-spacing:1px}
+
+/* recursos */
+.secao .miolo{padding-block:72px}
+.secao h2{font-size:clamp(28px, 3.6vw, 40px);margin-top:10px}
+.secao .intro{color:var(--apagado);max-width:60ch;margin:14px 0 36px}
+.grade3{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:20px}
+@media (max-width:860px){.grade3{grid-template-columns:1fr}}
+.grupo{border-top:2px solid var(--borda);padding-top:18px}
+.grupo h3{font-size:22px;display:flex;align-items:center;gap:10px}
+.grupo h3 svg{width:22px;height:22px}
+.grupo ul{list-style:none;padding:0;margin:14px 0 0;display:flex;flex-direction:column;gap:10px}
+.grupo li{color:var(--apagado)}
+.grupo li b{color:var(--texto);font-weight:600}
+
+/* planos */
+.planos{background:var(--muralha);border-block:1px solid var(--borda)}
+.fundador{display:flex;flex-wrap:wrap;align-items:center;gap:12px 18px;border:1px solid color-mix(in srgb, var(--sentinela) 45%, var(--borda));background:color-mix(in srgb, var(--sentinela) 7%, transparent);border-radius:12px;padding:14px 18px;margin-bottom:28px}
+.fundador strong{font-family:var(--f-titulo);color:var(--sentinela);font-size:18px}
+.fundador span{color:var(--apagado)}
+.plano{background:var(--noite);border:1px solid var(--borda);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:14px;border-top:4px solid var(--cor)}
+.plano header{display:flex;align-items:center;gap:10px}
+.plano header svg{width:26px;height:26px;color:var(--cor)}
+.plano h3{font-size:24px}
+.preco{font-family:var(--f-titulo);font-size:40px;font-weight:700;color:var(--cor);line-height:1;font-variant-numeric:tabular-nums}
+.preco small{font:500 15px var(--f-texto);color:var(--apagado);margin-left:4px}
+.anual{color:var(--apagado);font-size:14px;margin-top:-6px}
+.plano ul{list-style:none;padding:14px 0 0;margin:0;border-top:1px solid var(--borda);display:flex;flex-direction:column;gap:9px;flex:1}
+.plano li{display:flex;gap:10px;font-size:15px}
+.plano li::before{content:"";flex:0 0 16px;height:16px;margin-top:4px;background:var(--cor);-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/contain no-repeat}
+.plano li.destaque{font-weight:700}
+.depois{margin-top:22px;color:var(--apagado);font-size:14px}
+.v{--cor:var(--vigia)} .g{--cor:var(--guardiao)} .s{--cor:var(--sentinela)}
+
+/* como assinar */
+.passos{display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:20px;counter-reset:p;list-style:none;padding:0;margin:0}
+@media (max-width:860px){.passos{grid-template-columns:1fr}}
+.passos li{counter-increment:p;border:1px solid var(--borda);border-radius:12px;padding:20px;background:var(--muralha)}
+.passos li::before{content:counter(p);font:700 28px var(--f-titulo);color:var(--marca);display:block;margin-bottom:6px}
+.passos li b{display:block;font-size:17px;margin-bottom:4px}
+.passos li span{color:var(--apagado)}
+code{font-family:ui-monospace, "Cascadia Mono", Menlo, monospace;background:#1a2333;border:1px solid var(--borda);border-radius:6px;padding:1px 6px;font-size:.92em;color:var(--texto)}
+
+/* perguntas */
+.faq{display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:12px 28px}
+@media (max-width:860px){.faq{grid-template-columns:1fr}}
+.faq details{border-bottom:1px solid var(--borda);padding:14px 0}
+.faq summary{cursor:pointer;font-weight:700;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::after{content:"+";color:var(--apagado);font-weight:500}
+.faq details[open] summary::after{content:"–"}
+.faq p{color:var(--apagado);margin:10px 0 0}
+
+/* rodapé */
+.rodape{border-top:1px solid var(--borda)}
+.rodape .miolo{padding-block:36px;display:grid;grid-template-columns:1.4fr 1fr;gap:24px;font-size:14px;color:var(--apagado)}
+@media (max-width:760px){.rodape .miolo{grid-template-columns:1fr}}
+.rodape .links{display:flex;flex-wrap:wrap;gap:10px 20px;justify-content:flex-end;align-content:start}
+@media (max-width:760px){.rodape .links{justify-content:flex-start}}
+.rodape .links a{color:var(--texto);text-decoration:none;font-weight:600}
+.rodape .links a:hover{color:var(--guardiao)}
+.rodape p{margin:4px 0}
+</style>
+</head>
+<body style="margin:0">
+
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-escudo" viewBox="0 0 24 24"><path d="M12 2.5l8 3v6c0 5-3.4 9-8 10.5C7.4 20.5 4 16.5 4 11.5v-6z" fill="currentColor"/></symbol>
+  <symbol id="i-coroa" viewBox="0 0 24 24"><path d="M3 7l4.5 4L12 4l4.5 7L21 7l-2 11H5z" fill="currentColor"/></symbol>
+  <symbol id="i-lanterna" viewBox="0 0 24 24"><path d="M7 3h10v4l-2 3v10a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1V10L7 7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M12 13v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-pessoas" viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="2"/><path d="M3 20c.6-3.4 3-5.2 6-5.2s5.4 1.8 6 5.2M16 4.8a3.2 3.2 0 0 1 0 6.4M18 14.9c1.6.6 2.7 2.3 3 5.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+  <symbol id="i-trofeu" viewBox="0 0 24 24"><path d="M7 4h10v4a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4M12 13v4M8 21h8M9 17h6v4H9z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/></symbol>
+</svg>
+
+<header class="topo faixa">
+  <div class="miolo">
+    <a class="marca" href="#inicio" aria-label="Sentinela, início">
+      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2l12 4.5v9C28 23 22.8 28.7 16 30 9.2 28.7 4 23 4 15.5v-9z" fill="#2c2150" stroke="#8f7dff" stroke-width="1.6"/><path d="M10 15.5c2-3 4-4.5 6-4.5s4 1.5 6 4.5c-2 3-4 4.5-6 4.5s-4-1.5-6-4.5z" fill="none" stroke="#e6ebf2" stroke-width="1.6"/><circle cx="16" cy="15.5" r="2" fill="#f0b232"/></svg>
+      Sentinela
+    </a>
+    <nav class="nav" aria-label="Seções">
+      <a class="so-largo" href="#recursos">Recursos</a>
+      <a class="so-largo" href="#planos">Planos</a>
+      <a class="so-largo" href="#duvidas">Dúvidas</a>
+      <a class="botao primario" href="https://discord.com/oauth2/authorize?client_id=1519316387611283587">Adicionar ao Discord</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="heroi faixa">
+    <div class="miolo">
+      <div>
+        <p class="rotulo">Bot de proteção para Discord</p>
+        <h1>Seu servidor com um <em>guarda</em> de plantão.</h1>
+        <p class="lead">O Sentinela segura raids e bots, organiza cargos, verifica quem entra e cuida dos níveis. Tudo num painel só, o <code>/painel</code>, em português.</p>
+        <div class="acoes">
+          <a class="botao primario" href="https://discord.com/oauth2/authorize?client_id=1519316387611283587">Adicionar ao Discord</a>
+          <a class="botao secundario" href="https://discord.gg/Gdrckvm72r">Entrar na Base Sentinela</a>
+        </div>
+        <p class="nota-pt">Grátis para começar. Os planos pagos ligam a proteção completa e a aparência do seu servidor.</p>
+      </div>
+
+      <div class="discord" aria-label="Exemplo do /painel no Discord">
+        <div class="msg">
+          <div class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-escudo" style="color:#8f7dff"/></svg></div>
+          <div style="min-width:0;flex:1">
+            <div class="quem"><b>Sentinela</b><span class="app">✓ APP</span><small>Hoje às 14:03</small></div>
+            <div class="cartao">
+              <h3>Centro de Controle</h3>
+              <div>Plano: <b style="color:#f2f3f5">Guardião</b> · Fundador</div>
+              <div>Renova em <b style="color:#f2f3f5">08/12</b> · <span class="barra">▰▰▰▰▰▰▱▱▱▱</span></div>
+              <div class="linha"><div><b>Proteção</b><span class="sub">Anti-Spam, Anti-Raid, Anti-Bot e advertências</span></div><span class="mini">Abrir</span></div>
+              <div class="linha"><div><b>Organização</b><span class="sub">Cargos de entrada, verificação, Nitro e TAGs</span></div><span class="mini">Abrir</span></div>
+              <div class="linha"><div><b>Engajamento</b><span class="sub">XP, ranking, cartão, /perfil e sorteios</span></div><span class="mini">Abrir</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao faixa" id="recursos">
+    <div class="miolo">
+      <p class="rotulo">Recursos</p>
+      <h2>Proteger, organizar e animar o servidor.</h2>
+      <p class="intro">Cada recurso se configura pelo <code>/painel</code>, com botões e menus. Sem comandos para decorar.</p>
+      <div class="grade3">
+        <div class="grupo">
+          <h3><svg aria-hidden="true" style="color:var(--guardiao)"><use href="#i-escudo"/></svg>Proteção</h3>
+          <ul>
+            <li><b>Anti-Raid</b> avisa e pausa os cargos automáticos quando muitas contas entram de uma vez.</li>
+            <li><b>Anti-Bot</b> avisa quando um bot é adicionado.</li>
+            <li><b>Anti-Spam</b> apaga flood, links e menções em massa.</li>
+            <li><b>Advertências</b> com histórico e punição por acúmulo.</li>
+            <li><b>Logs Administrativos</b> registram o que cada admin fez.</li>
+          </ul>
+        </div>
+        <div class="grupo">
+          <h3><svg aria-hidden="true" style="color:var(--marca)"><use href="#i-pessoas"/></svg>Organização</h3>
+          <ul>
+            <li><b>Auto Cargo</b> dá cargos a quem entra.</li>
+            <li><b>Verificação</b> com idade mínima de conta.</li>
+            <li><b>Nitro &amp; Tags</b> recompensa quem impulsiona ou usa a TAG.</li>
+            <li><b>Cargos por botão</b> para os membros escolherem.</li>
+            <li><b>Painéis fixos</b> de ranking, avisos e status.</li>
+          </ul>
+        </div>
+        <div class="grupo">
+          <h3><svg aria-hidden="true" style="color:var(--sentinela)"><use href="#i-trofeu"/></svg>Engajamento</h3>
+          <ul>
+            <li><b>XP e níveis</b> por mensagem e por tempo em voz.</li>
+            <li><b>Recompensas</b> de cargo a cada nível.</li>
+            <li><b>Cartão e ranking</b> com temas.</li>
+            <li><b>/perfil</b> com fundos, insígnias e "Sobre mim".</li>
+            <li><b>Sorteios</b> com botão de participar.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao planos faixa" id="planos">
+    <div class="miolo">
+      <p class="rotulo">Planos</p>
+      <h2>Comece grátis. Suba quando precisar.</h2>
+      <p class="intro">O plano é do servidor. Cartão renova sozinho; Pix você renova, e a gente avisa antes. Sem boleto.</p>
+
+      <div class="fundador">
+        <strong>Preço de Fundador</strong>
+        <span>Os 50 primeiros servidores pagam o preço de lançamento enquanto a assinatura estiver ativa.</span>
+      </div>
+
+      <div class="grade3">
+        <article class="plano v">
+          <header><svg aria-hidden="true"><use href="#i-lanterna"/></svg><h3>Vigia</h3></header>
+          <div class="preco">Grátis</div>
+          <div class="anual">para sempre</div>
+          <ul>
+            <li>Anti-Spam e advertências</li>
+            <li>Auto Cargo e Verificação</li>
+            <li>XP, níveis, recompensas e cartão</li>
+            <li>Ranking fixo a cada 24 h</li>
+            <li>Sorteios</li>
+            <li>/perfil com o fundo Sentinela e os de conquista</li>
+          </ul>
+          <a class="botao secundario" href="https://discord.com/oauth2/authorize?client_id=1519316387611283587">Adicionar grátis</a>
+        </article>
+
+        <article class="plano g">
+          <header><svg aria-hidden="true"><use href="#i-escudo"/></svg><h3>Guardião</h3></header>
+          <div class="preco">R$ 9,90<small>/mês</small></div>
+          <div class="anual">ou R$ 99/ano · 2 meses grátis</div>
+          <ul>
+            <li>Anti-Raid e Anti-Bot</li>
+            <li>Logs Administrativos</li>
+            <li>Punição por acúmulo e idade mínima</li>
+            <li>Nitro &amp; Tags e multiplicador de XP</li>
+            <li>Painel e mensagem de TAG</li>
+            <li>Avisos livres e mais cargos por botão</li>
+            <li>Ranking fixo a cada 1 h</li>
+            <li>Temas, 3 fundos e cor no /perfil</li>
+          </ul>
+          <a class="botao" aria-disabled="true" role="link">Vendas abrem em breve</a>
+        </article>
+
+        <article class="plano s">
+          <header><svg aria-hidden="true"><use href="#i-coroa"/></svg><h3>Sentinela</h3></header>
+          <div class="preco">R$ 19,90<small>/mês</small></div>
+          <div class="anual">ou R$ 199/ano · 2 meses grátis</div>
+          <ul>
+            <li class="destaque">Tudo do Guardião</li>
+            <li>Cor, rodapé, banner e faixa do servidor</li>
+            <li>Fundo do servidor no /perfil</li>
+            <li>Coleção e Países (10 fundos)</li>
+            <li>Todos os fundos de conquista liberados</li>
+            <li>Lançamentos primeiro</li>
+          </ul>
+          <a class="botao" aria-disabled="true" role="link">Vendas abrem em breve</a>
+        </article>
+      </div>
+
+      <p class="depois">Depois das 50 vagas de Fundador: Guardião R$ 14,90/mês (R$ 149/ano) · Sentinela R$ 29,90/mês (R$ 299/ano).</p>
+    </div>
+  </section>
+
+  <section class="secao faixa" id="assinar">
+    <div class="miolo">
+      <p class="rotulo">Como assinar</p>
+      <h2>Tudo de dentro do Discord.</h2>
+      <p class="intro">Quando as vendas abrirem, a assinatura acontece no próprio servidor.</p>
+      <ol class="passos">
+        <li><b>Adicione o Sentinela</b><span>Use o botão "Adicionar ao Discord" e escolha o seu servidor.</span></li>
+        <li><b>Abra o <code>/painel</code></b><span>No seu servidor, entre em <b style="display:inline">Planos</b>.</span></li>
+        <li><b>Escolha e pague</b><span>Plano, mensal ou anual, e cartão ou Pix. O plano liga sozinho quando o pagamento cai.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="secao faixa" id="duvidas" style="padding-top:0">
+    <div class="miolo">
+      <p class="rotulo">Dúvidas</p>
+      <h2>Antes de assinar</h2>
+      <div class="faq" style="margin-top:28px">
+        <details><summary>Posso cancelar quando quiser?</summary><p>Sim, pela tela Planos do /painel. O plano continua até o fim do período já pago e não há nova cobrança.</p></details>
+        <details><summary>Me arrependi. Tenho reembolso?</summary><p>Nos primeiros 7 dias da primeira contratação, devolvemos o valor inteiro. Peça pelo suporte na Base Sentinela.</p></details>
+        <details><summary>O que acontece se o plano vencer?</summary><p>O plano segue funcionando por mais 3 dias. Depois o servidor volta ao Vigia e nada é apagado: as configurações ficam guardadas e voltam quando o plano voltar.</p></details>
+        <details><summary>Posso trocar de plano?</summary><p>Sim. Subir para o Sentinela vale na hora. Descer para o Guardião vale no fim do período já pago.</p></details>
+        <details><summary>Quais formas de pagamento?</summary><p>Cartão de crédito (renova sozinho) e Pix (você renova, com aviso antes). Pagamentos pelo Mercado Pago. Sem boleto.</p></details>
+        <details><summary>O Sentinela guarda minhas mensagens?</summary><p>Não. Ele lê as mensagens só para contar XP e detectar spam, sem guardar o texto. Veja a Política de Privacidade.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="rodape faixa">
+  <div class="miolo">
+    <div>
+      <p><b style="color:var(--texto)">Sentinela</b> é mantido por Felipe Pereira dos Santos, pessoa física, CPF 020.833.016-09.</p>
+      <p>Avenida Padre Airton Freire de Lima, 45, Guanabara, Betim/MG, CEP 32667-075.</p>
+      <p>Contato: contato@botsentinela.com.br</p>
+    </div>
+    <nav class="links" aria-label="Links legais e suporte">
+      <a href="https://gist.github.com/CrazyChappie/a7096dd562ca0e5d9ef5de8a4dfaf159">Termos de Uso</a>
+      <a href="https://gist.github.com/CrazyChappie/6e2844eda3efc1dc081824dd6a03afdd">Política de Privacidade</a>
+      <a href="https://discord.gg/Gdrckvm72r">Suporte</a>
+    </nav>
+  </div>
+</footer>
+
+</body>
+</html>

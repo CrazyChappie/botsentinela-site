@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sentinela para Discord</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <meta name="description" content="Sentinela: proteção, organização e níveis para o seu servidor no Discord, em português.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -42,7 +43,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .topo{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:color-mix(in srgb, var(--noite) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--borda)}
 .topo .miolo{display:flex;align-items:center;gap:20px;padding-block:14px}
 .marca{display:flex;align-items:center;gap:10px;color:var(--texto);text-decoration:none;font:700 20px var(--f-titulo);letter-spacing:.02em}
-.marca svg{width:30px;height:30px}
+.marca img{width:34px;height:34px;border-radius:50%;display:block}
 .nav{display:flex;gap:22px;margin-left:auto;align-items:center}
 .nav a{color:var(--apagado);text-decoration:none;font-weight:600;font-size:15px}
 .nav a:hover{color:var(--texto)}
@@ -67,7 +68,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .discord{background:var(--discord);border-radius:14px;padding:16px;border:1px solid #1f2125;box-shadow:0 24px 60px -24px rgba(0,0,0,.7);min-width:0}
 .msg{display:flex;gap:12px}
 .av{width:40px;height:40px;border-radius:50%;background:#2c2150;flex-shrink:0;display:grid;place-items:center}
-.av svg{width:22px;height:22px}
+.av img{width:40px;height:40px;border-radius:50%;display:block}
 .quem{font-size:14px}
 .quem b{color:#f23f43}
 .quem .app{background:#5865f2;color:#fff;font-size:10px;font-weight:700;border-radius:4px;padding:1px 5px;margin-left:6px}
@@ -155,7 +156,7 @@ code{font-family:ui-monospace, "Cascadia Mono", Menlo, monospace;background:#1a2
 <header class="topo faixa">
   <div class="miolo">
     <a class="marca" href="#inicio" aria-label="Sentinela, início">
-      <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2l12 4.5v9C28 23 22.8 28.7 16 30 9.2 28.7 4 23 4 15.5v-9z" fill="#2c2150" stroke="#8f7dff" stroke-width="1.6"/><path d="M10 15.5c2-3 4-4.5 6-4.5s4 1.5 6 4.5c-2 3-4 4.5-6 4.5s-4-1.5-6-4.5z" fill="none" stroke="#e6ebf2" stroke-width="1.6"/><circle cx="16" cy="15.5" r="2" fill="#f0b232"/></svg>
+      <img src="logo.webp" alt="" width="34" height="34">
       Sentinela
     </a>
     <nav class="nav" aria-label="Seções">
@@ -183,7 +184,7 @@ code{font-family:ui-monospace, "Cascadia Mono", Menlo, monospace;background:#1a2
 
       <div class="discord" aria-label="Exemplo do /painel no Discord">
         <div class="msg">
-          <div class="av"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-escudo" style="color:#8f7dff"/></svg></div>
+          <div class="av"><img src="logo.webp" alt="" width="40" height="40"></div>
           <div style="min-width:0;flex:1">
             <div class="quem"><b>Sentinela</b><span class="app">✓ APP</span><small>Hoje às 14:03</small></div>
             <div class="cartao">

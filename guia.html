@@ -1,0 +1,1345 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guia · Sentinela</title>
+<meta name="description" content="Guia completo das configurações do Sentinela: cada área do /painel, o que faz, padrões, limites e o plano necessário.">
+<link rel="canonical" href="https://botsentinela.com.br/guia">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Sentinela">
+<meta property="og:title" content="Guia · Sentinela">
+<meta property="og:description" content="Guia completo das configurações do Sentinela: cada área do /painel, o que faz, padrões, limites e o plano necessário.">
+<meta property="og:url" content="https://botsentinela.com.br/guia">
+<meta property="og:image" content="https://botsentinela.com.br/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#8f7dff">
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  color-scheme: dark;
+  --noite:#0b1018;       /* fundo */
+  --muralha:#121a26;     /* superfícies */
+  --borda:#223047;
+  --texto:#e6ebf2;
+  --apagado:#9aa7ba;
+  --vigia:#c7cdd6;       /* plano grátis */
+  --guardiao:#4f8ef7;    /* plano azul */
+  --sentinela:#f0b232;   /* plano dourado */
+  --marca:#8f7dff;       /* violeta do avatar, com parcimônia */
+  --discord:#313338;
+  --discord-card:#2b2d31;
+  --f-titulo:"Chakra Petch", "Segoe UI", system-ui, sans-serif;
+  --f-texto:"Manrope", "Segoe UI", system-ui, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--noite);color:var(--texto);font:16px/1.6 var(--f-texto);-webkit-font-smoothing:antialiased}
+a{color:var(--guardiao)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--marca);outline-offset:3px;border-radius:6px}
+.faixa{padding-left:max(16px, env(safe-area-inset-left, 0px));padding-right:max(16px, env(safe-area-inset-right, 0px))}
+.miolo{max-width:1120px;margin:0 auto}
+h1,h2,h3{font-family:var(--f-titulo);line-height:1.15;text-wrap:balance;margin:0}
+.rotulo{font:600 12px/1 var(--f-titulo);letter-spacing:.14em;text-transform:uppercase;color:var(--marca)}
+
+/* topo */
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top, 0px);z-index:10;background:var(--noite)}
+.topo{position:sticky;top:env(safe-area-inset-top, 0px);z-index:5;background:color-mix(in srgb, var(--noite) 88%, transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--borda)}
+.topo .miolo{display:flex;align-items:center;gap:20px;padding-block:14px}
+.marca{display:flex;align-items:center;gap:10px;color:var(--texto);text-decoration:none;font:700 20px var(--f-titulo);letter-spacing:.02em}
+.marca img{width:34px;height:34px;border-radius:50%;display:block}
+.nav{display:flex;gap:22px;margin-left:auto;align-items:center}
+.nav a{white-space:nowrap;color:var(--apagado);text-decoration:none;font-weight:600;font-size:15px}
+.nav a:hover{color:var(--texto)}
+.botao{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:10px;font:600 15px var(--f-texto);text-decoration:none;border:1px solid transparent;cursor:pointer}
+.botao.primario{background:var(--guardiao);color:#06101f}
+.botao.primario:hover{background:#6aa0ff}
+.botao.secundario{border-color:var(--borda);color:var(--texto);background:transparent}
+.botao.secundario:hover{border-color:var(--apagado)}
+.botao[aria-disabled="true"]{background:#1a2333;color:var(--apagado);border-color:var(--borda);cursor:not-allowed}
+@media (max-width:920px){.nav a.so-largo{display:none}}
+
+
+.rodape{border-top:1px solid var(--borda)}
+.rodape .miolo{padding-block:36px;display:grid;grid-template-columns:1.4fr 1fr;gap:24px;font-size:14px;color:var(--apagado)}
+@media (max-width:760px){.rodape .miolo{grid-template-columns:1fr}}
+.rodape .links{display:flex;flex-wrap:wrap;gap:10px 20px;justify-content:flex-end;align-content:start}
+@media (max-width:760px){.rodape .links{justify-content:flex-start}}
+.rodape .links a{color:var(--texto);text-decoration:none;font-weight:600}
+.rodape .links a:hover{color:var(--guardiao)}
+.rodape p{margin:4px 0}
+
+.doc .miolo{max-width:780px;padding-block:48px 64px}
+.doc h1{font-size:clamp(30px,4.6vw,44px);font-weight:700;margin-bottom:12px}
+.doc h2{font-size:22px;font-weight:600;margin:40px 0 10px;scroll-margin-top:90px}
+.doc p,.doc li{color:#cdd5e1}
+.doc strong{color:var(--texto)}
+.doc ul{padding-left:22px}
+.doc li{margin:6px 0}
+.doc table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px;display:block;overflow-x:auto}
+.doc th,.doc td{border:1px solid var(--borda);padding:10px 12px;text-align:left;vertical-align:top}
+.doc th{background:var(--muralha);font-family:var(--f-titulo);font-weight:600}
+.voltar{display:inline-block;margin-bottom:24px;color:var(--apagado);text-decoration:none;font-weight:600;font-size:14px}
+.voltar:hover{color:var(--texto)}
+.indice{background:var(--muralha);border:1px solid var(--borda);border-radius:12px;padding:16px 20px;margin:24px 0 8px;font-size:15px}
+.indice li{margin:0 0 8px;break-inside:avoid}
+.indice ol{margin:10px 0 0;padding-left:22px;columns:2;column-gap:28px}
+@media (max-width:600px){.indice ol{columns:1}}
+.indice a{color:var(--apagado);text-decoration:none}.indice a:hover{color:var(--texto)}
+.outro{margin-top:48px;padding-top:20px;border-top:1px solid var(--borda);font-size:15px}
+
+
+.passo{display:grid;grid-template-columns:44px 1fr;gap:16px;margin:28px 0}
+.num{width:44px;height:44px;border-radius:50%;background:var(--muralha);border:1px solid var(--borda);display:flex;align-items:center;justify-content:center;font:700 18px var(--f-titulo);color:var(--marca)}
+.passo h2{margin:6px 0 8px}
+.dica{background:var(--muralha);border:1px solid var(--borda);border-left:4px solid var(--guardiao);border-radius:10px;padding:14px 16px;margin:14px 0;font-size:15px}
+.dica.ouro{border-left-color:var(--sentinela)}
+.doc .botoes{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+
+.doc h3{font-size:18px;font-weight:600;margin:30px 0 8px;scroll-margin-top:90px;color:var(--texto)}
+.doc h2{font-size:26px;margin-top:56px;padding-top:20px;border-top:1px solid var(--borda)}
+.doc table{font-size:14px}
+.doc td:first-child{min-width:150px}
+@media (max-width:640px){
+ .doc table{display:block;border:0}
+ .doc thead{display:none}
+ .doc tbody,.doc tr,.doc td{display:block;width:100%}
+ .doc tr{background:var(--muralha);border:1px solid var(--borda);border-radius:10px;padding:10px 12px;margin:0 0 10px}
+ .doc td{border:0;padding:3px 0}
+ .doc td:first-child{font-family:var(--f-titulo);font-weight:600;font-size:15.5px;padding-bottom:6px}
+ .doc td:not(:first-child)::before{content:attr(data-label) ": ";color:var(--apagado);font-weight:600}
+}
+mark.conferir{background:#5a3b00;color:#ffd27a;border-radius:4px;padding:0 4px}
+code{background:var(--muralha);border:1px solid var(--borda);border-radius:6px;padding:1px 6px;font-size:.92em}
+</style>
+</head>
+<body style="margin:0">
+<header class="topo faixa">
+  <div class="miolo">
+    <a class="marca" href="/" aria-label="Sentinela, início">
+      <img src="logo.webp" alt="" width="34" height="34">
+      Sentinela
+    </a>
+    <nav class="nav" aria-label="Seções">
+      <a class="so-largo" href="/#recursos">Recursos</a>
+      <a class="so-largo" href="/#planos">Planos</a>
+      <a class="so-largo" href="/#duvidas">Dúvidas</a>
+      <a class="so-largo" href="como-configurar">Configurar</a>
+      <a class="botao primario" href="https://discord.com/oauth2/authorize?client_id=1519316387611283587">Adicionar ao Discord</a>
+    </nav>
+  </div>
+</header>
+<main class="doc faixa">
+  <article class="miolo">
+<a class="voltar" href="/">← Voltar ao início</a>
+<h1>Guia do Sentinela</h1>
+<p>Tudo o que o Sentinela faz se configura por botões, num lugar só: o comando <strong>/painel</strong>.
+Este guia mostra cada área do painel, na ordem em que aparece, com o que cada opção faz,
+os limites e o plano necessário.</p>
+<p><strong>Planos</strong></p>
+<ul>
+<li>🔦 <strong>Vigia</strong>: grátis, para sempre.</li>
+<li>🛡️ <strong>Guardião</strong>: proteção completa, Nitro &amp; Tags e mais organização e engajamento.</li>
+<li>👑 <strong>Sentinela</strong>: tudo do Guardião + a 🎨 Aparência do servidor e os fundos de coleção do /perfil.</li>
+</ul>
+<p>Plano maior sempre inclui tudo do menor. Nos botões do painel, 🛡️ ou 👑 ao lado de um recurso
+mostra qual plano o libera, e 🔒 indica que ele não está no seu plano.</p>
+
+<nav class="indice" aria-label="Nesta página"><strong>Nesta página</strong><ol><li><a href="#primeiros-passos">Primeiros passos</a></li><li><a href="#protecao">🛡️ Proteção</a></li><li><a href="#organizacao">📋 Organização</a></li><li><a href="#engajamento">📈 Engajamento</a></li><li><a href="#planos">💎 Planos</a></li><li><a href="#configurar-em-3-passos">⚡ Configurar em 3 passos</a></li><li><a href="#diagnostico">🔍 Diagnóstico</a></li><li><a href="#suporte">📩 Suporte</a></li><li><a href="#comandos-publicos">Comandos públicos</a></li><li><a href="#resumo-recurso-plano">Resumo: recurso × plano</a></li></ol></nav><h2 id="primeiros-passos">Primeiros passos</h2>
+<ol>
+<li><strong>Convide o Sentinela</strong> para o seu servidor pelo link oficial. Ele pede só as permissões
+    de que precisa (lista abaixo) e <strong>nunca</strong> pede Administrador, Banir, Expulsar, Gerenciar
+    servidor ou Gerenciar canais.</li>
+<li><strong>Suba o cargo do Sentinela.</strong> Em <em>Configurações do servidor → Cargos</em>, arraste o cargo
+    do Sentinela para <strong>acima</strong> de todos os cargos que ele vai entregar (cargo de entrada,
+    verificado, booster, TAG, recompensas, cargos por botão). Esse é o erro mais comum: o bot
+    só consegue dar ou tirar cargos que estão abaixo do cargo dele.</li>
+<li><strong>Digite /painel</strong> (só administradores veem e usam).</li>
+<li><strong>Toque em ⚡ Configurar em 3 passos.</strong> O assistente configura o essencial:<ul>
+<li><strong>Passo 1:</strong> o canal de logs;</li>
+<li><strong>Passo 2:</strong> a proteção (Anti-Spam);</li>
+<li><strong>Passo 3:</strong> o cargo de entrada e o XP.
+No fim, ele mostra um resumo e o Diagnóstico. Dá para pular qualquer passo.</li>
+</ul>
+</li>
+<li><strong>Toque em 🔍 Diagnóstico</strong> para conferir se falta alguma permissão ou se algum cargo ou
+    canal está com problema.</li>
+<li>Depois, explore as três áreas: <strong>🛡️ Proteção</strong>, <strong>📋 Organização</strong> e <strong>📈 Engajamento</strong>.</li>
+</ol>
+<h3 id="permissoes-que-o-sentinela-pede">Permissões que o Sentinela pede</h3>
+<ul>
+<li>Ver canais</li>
+<li>Enviar mensagens</li>
+<li>Inserir links</li>
+<li>Ler histórico de mensagens</li>
+<li>Gerenciar cargos</li>
+<li>Gerenciar mensagens</li>
+<li>Moderar membros</li>
+<li>Criar convite instantâneo</li>
+<li>Anexar arquivos</li>
+<li>Gerenciar tópicos</li>
+<li>Enviar mensagens em tópicos</li>
+</ul>
+<p>Se faltar alguma, o painel mostra o botão <strong>🔑 Atualizar permissões</strong>, que abre o convite já
+com o seu servidor escolhido. Basta confirmar.</p>
+<h3 id="como-ler-o-painel">Como ler o painel</h3>
+<ul>
+<li>✅ ligado e funcionando</li>
+<li>⭕ desligado</li>
+<li>⚠️ falta configurar algo</li>
+<li>🔒 não está no plano do servidor</li>
+<li>⏸️ pausado: o plano venceu ou não libera o recurso. Nada é apagado: as suas configurações
+    ficam guardadas e o recurso volta sozinho quando o plano voltar. Desligar e remover são
+    sempre permitidos, em qualquer plano.</li>
+</ul>
+
+<h2 id="protecao">🛡️ Proteção</h2>
+<p>Defesas contra spam, raids e bots, advertências e o registro das ações dos administradores.</p>
+<h3 id="antispam">🚫 Anti-Spam — 🔦 Vigia (grátis)</h3>
+<p>Apaga flood e, se você quiser, links, convites de outros servidores e menções em massa.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Ligar / Desligar</strong></td>
+<td data-label="O que faz">Liga a proteção contra flood.</td>
+<td data-label="Padrão">Desligado</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Flood</strong> (automático)</td>
+<td data-label="O que faz">Quem manda 5 mensagens em 5 segundos tem as mensagens apagadas e fica 60 segundos de castigo.</td>
+<td data-label="Padrão">Ligado com o Anti-Spam</td>
+<td data-label="Limites">Fixo (não muda)</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Proteções ligadas → Links</strong></td>
+<td data-label="O que faz">Apaga mensagens com links.</td>
+<td data-label="Padrão">Desmarcado</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Proteções ligadas → Convites</strong></td>
+<td data-label="O que faz">Apaga convites de outros servidores.</td>
+<td data-label="Padrão">Desmarcado</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Proteções ligadas → Menções em massa</strong></td>
+<td data-label="O que faz">Apaga mensagens com 5 menções ou @everyone.</td>
+<td data-label="Padrão">Desmarcado</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Canais ignorados</strong></td>
+<td data-label="O que faz">Canais onde o Anti-Spam não age.</td>
+<td data-label="Padrão">Nenhum</td>
+<td data-label="Limites">Até 25 canais</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Permissões:</strong> Gerenciar mensagens (para apagar) e Moderar membros (para o castigo).</li>
+<li><strong>Dicas e erros comuns:</strong><ul>
+<li>O castigo não funciona em quem tem um cargo acima do Sentinela, nem em administradores.</li>
+<li>Coloque canais de divulgação ou de links em <em>Canais ignorados</em>.</li>
+<li>Cada mudança é salva na hora.</li>
+</ul>
+</li>
+</ul>
+<h3 id="antiraid">🚨 Anti-Raid — 🛡️ Guardião</h3>
+<p>Avisa quando muitas contas entram de uma vez e segura os cargos automáticos.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Ligar / Desligar</strong></td>
+<td data-label="O que faz">Detecta raids.</td>
+<td data-label="Padrão">Desligado</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Gatilho</strong> (automático)</td>
+<td data-label="O que faz">10 entradas em 30 segundos disparam o alerta.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">Fixo</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Durante um raid, o <strong>Auto Cargo espera a sua decisão</strong> e o botão de <strong>Verificação</strong> fica
+    pausado por alguns minutos.</li>
+<li><strong>Ninguém é punido automaticamente.</strong></li>
+<li><strong>Plano:</strong> só no 🛡️ Guardião. Com o plano vencido, fica ⏸️ pausado: não detecta nem segura
+    cargos, e um raid em andamento termina com os cargos entregues.</li>
+<li><strong>Permissões:</strong> Gerenciar cargos.</li>
+<li><strong>Dica:</strong> configure também os <strong>Logs Administrativos</strong> ou os <strong>Logs gerais</strong> para receber o
+    alerta num canal da equipe. <mark class="conferir">[CONFERIR: em qual canal o alerta do raid aparece]</mark></li>
+</ul>
+<h3 id="antibot">🤖 Anti-Bot — 🛡️ Guardião</h3>
+<p>Avisa quando um bot é adicionado ao servidor.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Ligar / Desligar</strong></td>
+<td data-label="O que faz">Registra um aviso com o nome de cada bot que entra.</td>
+<td data-label="Padrão">Desligado</td>
+<td data-label="Limites">—</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Não bloqueia nem expulsa o bot: só avisa.</li>
+<li><strong>Plano:</strong> só no 🛡️ Guardião. Com o plano vencido, fica ⏸️ pausado.</li>
+<li><strong>Permissões:</strong> Ver canais, Enviar mensagens e Inserir links no canal do aviso.</li>
+<li><mark class="conferir">[CONFERIR: em qual canal o aviso do Anti-Bot aparece (logs gerais ou administrativos)]</mark></li>
+</ul>
+<h3 id="advertencias">⚠️ Advertências — 🔦 Vigia (grátis); punição por acúmulo no 🛡️ Guardião</h3>
+<p>Um aviso oficial para um membro, com motivo, e o histórico de cada pessoa para a equipe.
+Sozinha, a advertência não pune.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Ligar</strong></td>
+<td data-label="O que faz">Ativa as advertências no servidor.</td>
+<td data-label="Padrão">Desligado</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Advertir membro</strong></td>
+<td data-label="O que faz">Escolhe o membro e escreve o motivo.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">Motivo de até 300 caracteres</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Mensagem privada</strong> (Ligada/Desligada)</td>
+<td data-label="O que faz">O membro recebe o motivo em mensagem privada.</td>
+<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Validade das advertências</strong> (Alterar)</td>
+<td data-label="O que faz">Por quantos dias uma advertência conta.</td>
+<td data-label="Padrão">90 dias</td>
+<td data-label="Limites">1 a 3.650 dias <mark class="conferir">[CONFERIR: mínimo]</mark></td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Histórico do membro</strong></td>
+<td data-label="O que faz">Mostra as advertências de um membro e permite remover uma (com confirmação).</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">Mostra as 10 mais recentes</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Adicionar degrau</strong> 🛡️</td>
+<td data-label="O que faz">Punição automática ao chegar a X advertências ativas: castigo ou um cargo (ex.: @Silenciado).</td>
+<td data-label="Padrão">Nenhum</td>
+<td data-label="Limites">Até 5 degraus; de 1 a 10 advertências; castigo de 10 min, 1 h, 1 dia ou 7 dias</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Remover degrau / Remover todos</strong></td>
+<td data-label="O que faz">Tira degraus.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">Sempre permitido</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Plano:</strong> advertir, ver e remover no 🔦 Vigia. Degraus de punição no 🛡️ Guardião. Com o plano
+    vencido, os degraus ficam ⏸️ pausados e as advertências continuam funcionando.</li>
+<li>O Sentinela <strong>nunca bane nem expulsa</strong>.</li>
+<li><strong>Permissões:</strong> Moderar membros (castigo) e Gerenciar cargos (cargo de punição).</li>
+<li><strong>Erros comuns:</strong><ul>
+<li>O cargo de punição precisa estar abaixo do cargo do Sentinela.</li>
+<li>Administradores não recebem castigo.</li>
+<li>A mensagem privada não chega a quem fechou as mensagens privadas.</li>
+</ul>
+</li>
+</ul>
+<h3 id="logs-administrativos">📜 Logs Administrativos — 🛡️ Guardião</h3>
+<p>Registra num canal da equipe o que os administradores mudam no Sentinela (por exemplo:
+"Anti-Link ativado por @Moderadora").</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Canal</strong></td>
+<td data-label="O que faz">Onde ficam os registros.</td>
+<td data-label="Padrão">Nenhum</td>
+<td data-label="Limites">1 canal</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Testar</strong></td>
+<td data-label="O que faz">Manda um registro de exemplo.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Desativar</strong></td>
+<td data-label="O que faz">Para de registrar.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">Sempre permitido</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>O histórico de alterações do painel também vai para este canal.</li>
+<li><strong>Plano:</strong> 🛡️ Guardião. Com o plano vencido, fica ⏸️ pausado e o histórico passa a ir para
+    os Logs gerais.</li>
+<li><strong>Permissões:</strong> Ver canais, Enviar mensagens e Inserir links no canal.</li>
+<li><strong>Dica:</strong> use um canal privado, só da equipe.</li>
+</ul>
+
+<h2 id="organizacao">📋 Organização</h2>
+<p>Cargos de entrada, verificação, Nitro e TAGs, logs, cargos por botão e painéis fixos.</p>
+<h3 id="auto-cargo">👤 Auto Cargo — 🔦 Vigia (grátis); sincronizar no 🛡️ Guardião</h3>
+<p>Dá um cargo a quem entra: um para membros e outro para bots.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Cargo de membros</strong></td>
+<td data-label="O que faz">Cargo entregue a cada pessoa que entra.</td>
+<td data-label="Padrão">Nenhum</td>
+<td data-label="Limites">1 cargo (esvazie a lista para tirar)</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Cargo de bots</strong></td>
+<td data-label="O que faz">Cargo entregue a cada bot que entra.</td>
+<td data-label="Padrão">Nenhum</td>
+<td data-label="Limites">1 cargo</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Esperar as regras do Discord</strong> (Sim/Não)</td>
+<td data-label="O que faz">O cargo só vem depois que o membro aceita as regras do servidor.</td>
+<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Verificação →</strong></td>
+<td data-label="O que faz">Atalho para a Verificação: o cargo de entrada pode esperar o clique no botão Verificar.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Sincronizar</strong> 🛡️</td>
+<td data-label="O que faz">Dá o cargo a quem já estava no servidor antes de você configurar.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">Servidores muito grandes podem ser recusados. <mark class="conferir">[CONFERIR: limite de membros para mostrar]</mark></td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Desativar</strong></td>
+<td data-label="O que faz">Para de entregar cargos.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">Sempre permitido</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Permissões:</strong> Gerenciar cargos.</li>
+<li><strong>Erros comuns:</strong><ul>
+<li>O cargo precisa estar <strong>abaixo</strong> do cargo do Sentinela.</li>
+<li>O Sentinela recusa cargos com permissões perigosas (como Administrador), cargos de outros
+bots e o @everyone.</li>
+<li>Durante um raid (Anti-Raid), os cargos esperam a sua decisão.</li>
+</ul>
+</li>
+</ul>
+<h3 id="verificacao">🔐 Verificação — 🔦 Vigia (grátis); idade mínima no 🛡️ Guardião</h3>
+<p>Publica num canal uma mensagem fixa com o botão <strong>Verificar</strong>. Quem toca recebe o cargo de
+verificado.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Ligar</strong></td>
+<td data-label="O que faz">Publica a mensagem com o botão.</td>
+<td data-label="Padrão">Desligado</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Canal</strong></td>
+<td data-label="O que faz">Onde fica a mensagem.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">1 canal</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Cargo de verificado</strong></td>
+<td data-label="O que faz">Entregue a quem toca em Verificar.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">1 cargo</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Cargo de não verificado</strong> (opcional)</td>
+<td data-label="O que faz">Retirado de quem toca em Verificar.</td>
+<td data-label="Padrão">Nenhum</td>
+<td data-label="Limites">1 cargo</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Cargo de entrada só depois do clique</strong></td>
+<td data-label="O que faz">O cargo do Auto Cargo só sai depois do clique.</td>
+<td data-label="Padrão">Desligado</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Texto da mensagem</strong></td>
+<td data-label="O que faz">Título e texto da mensagem.</td>
+<td data-label="Padrão">Texto padrão</td>
+<td data-label="Limites">Título até 100 e texto até 1.000 caracteres</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Texto padrão</strong></td>
+<td data-label="O que faz">Volta ao texto original.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Publicar de novo</strong></td>
+<td data-label="O que faz">Publica a mensagem outra vez (se alguém apagou).</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Idade mínima</strong> 🛡️</td>
+<td data-label="O que faz">Exige uma conta do Discord com pelo menos X dias.</td>
+<td data-label="Padrão">Sem idade mínima</td>
+<td data-label="Limites">1, 3, 7, 14 ou 30 dias</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Plano:</strong> botão e cargos no 🔦 Vigia. Idade mínima no 🛡️ Guardião; com o plano vencido, a
+    idade fica ⏸️ pausada e a verificação continua funcionando sem ela.</li>
+<li><strong>Permissões:</strong> Gerenciar cargos, e Ver canais, Enviar mensagens e Inserir links no canal.</li>
+<li><strong>Dica:</strong> deixe o canal de verificação visível para quem ainda não tem o cargo.</li>
+</ul>
+<h3 id="nitro-amp-tags">💎 Nitro &amp; Tags — 🛡️ Guardião</h3>
+<p>Recompensa quem impulsiona o servidor e quem usa a TAG dele.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Cargo de booster</strong></td>
+<td data-label="O que faz">Cargo entregue a quem impulsiona o servidor; sai quando o impulso acaba.</td>
+<td data-label="Padrão">Nenhum</td>
+<td data-label="Limites">1 cargo</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>TAGs</strong></td>
+<td data-label="O que faz">Liga um cargo à TAG do servidor: quem usa a TAG ganha o cargo, quem tira perde.</td>
+<td data-label="Padrão">Nenhuma</td>
+<td data-label="Limites"><mark class="conferir">[CONFERIR: quantos cargos de TAG]</mark></td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Multiplicadores</strong> ⚡</td>
+<td data-label="O que faz">Multiplicador de XP por cargo (ex.: boosters ganham 2x XP).</td>
+<td data-label="Padrão">Nenhum</td>
+<td data-label="Limites"><mark class="conferir">[CONFERIR: valores mínimo e máximo]</mark></td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Mensagem da TAG</strong></td>
+<td data-label="O que faz">O aviso quando alguém coloca a TAG. Variáveis: {member}, {tag}, {role}/{cargo}.</td>
+<td data-label="Padrão">"🎉 {member} recebeu a tag do servidor <strong>{tag}</strong>!"</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Sincronizar membros</strong> 🔄</td>
+<td data-label="O que faz">Confere quem já usa a TAG ou já impulsiona e acerta os cargos.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Mesmo sem você sincronizar, o Sentinela confere sozinho quando alguém coloca ou tira a TAG
+    ou o impulso.</li>
+<li><strong>Plano:</strong> tudo no 🛡️ Guardião. Com o plano vencido, fica ⏸️ pausado: ninguém ganha cargo
+    novo nem XP extra, mas quem perde o impulso ou a TAG continua perdendo o cargo.</li>
+<li><strong>Permissões:</strong> Gerenciar cargos.</li>
+<li><strong>Erros comuns:</strong><ul>
+<li>Os cargos de booster e de TAG precisam estar abaixo do cargo do Sentinela.</li>
+<li>Não use o mesmo cargo no Auto Cargo, no booster, nas TAGs e nas recompensas de nível.</li>
+</ul>
+</li>
+</ul>
+<h3 id="logs-gerais">📋 Logs gerais — 🔦 Vigia (grátis); mensagem de TAG no 🛡️ Guardião</h3>
+<p>O canal onde o Sentinela avisa subidas de nível, TAGs, entradas com cargo automático e as
+ações das proteções.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Canal</strong></td>
+<td data-label="O que faz">Onde os avisos aparecem.</td>
+<td data-label="Padrão">Nenhum</td>
+<td data-label="Limites">1 canal</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Quais avisos enviar</strong></td>
+<td data-label="O que faz">Marque: entrada de membro, entrada de bot, subida de nível e (com Nitro &amp; Tags) colocou ou tirou a TAG.</td>
+<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Editar mensagens</strong></td>
+<td data-label="O que faz">Personaliza as mensagens de entrada de membro e de bot.</td>
+<td data-label="Padrão">Texto padrão</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Ver prévia</strong></td>
+<td data-label="O que faz">Mostra como as mensagens ficam.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Testar</strong></td>
+<td data-label="O que faz">Manda um exemplo no canal.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Restaurar mensagens</strong></td>
+<td data-label="O que faz">Volta aos textos padrão.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Cartão de boas-vindas</strong></td>
+<td data-label="O que faz">Na entrada de um membro, uma imagem com avatar, nome e número do membro.</td>
+<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="Limites">Tema Sentinela no Vigia; temas coloridos no 🛡️ Guardião</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Variáveis das mensagens:</strong> {member} (quem), {level} (o nível), {tag} (a TAG),
+    {cargo} ou {role} (o cargo), {servidor} ou {server} (o servidor).</li>
+<li>Onde editar as outras mensagens:<ul>
+<li>a mensagem de subida de nível fica em <em>Níveis e Recompensas</em>;</li>
+<li>a mensagem de TAG fica em <em>Nitro &amp; Tags</em>.</li>
+</ul>
+</li>
+<li>Sem Logs Administrativos configurado, o histórico do painel também vem para cá.</li>
+<li><strong>Permissões:</strong> Ver canais, Enviar mensagens, Inserir links e Anexar arquivos (para as imagens).</li>
+<li><strong>Erro comum:</strong> sem <em>Anexar arquivos</em> no canal, a entrada sai só em texto, sem o cartão.</li>
+</ul>
+<h3 id="cargos-por-botao">🔘 Cargos por botão — 🔦 Vigia (grátis, com limite); mais no 🛡️ Guardião</h3>
+<p>Uma mensagem com um botão por cargo: cada pessoa pega (ou tira) os cargos que quiser.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Criar menu</strong></td>
+<td data-label="O que faz">Título, descrição, canal e modo.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">Título até 100 e descrição até 1.000 caracteres</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Modo</strong></td>
+<td data-label="O que faz"><em>Vários</em>: a pessoa pega quantos quiser. <em>Só um</em>: ao escolher um, os outros do menu saem.</td>
+<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Adicionar cargo</strong></td>
+<td data-label="O que faz">Cargo, texto do botão e emoji (opcional).</td>
+<td data-label="Padrão">Texto = nome do cargo</td>
+<td data-label="Limites">Texto até 80 caracteres</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Remover cargo</strong></td>
+<td data-label="O que faz">Tira um cargo do menu.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">Sempre permitido</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Editar menu / Testar / Publicar de novo / Apagar menu</strong></td>
+<td data-label="O que faz">Edita, mostra um teste, publica outra vez ou apaga.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">Apagar é sempre permitido</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Plano</th>
+<th>Menus</th>
+<th>Cargos por menu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Plano">🔦 Vigia</td>
+<td data-label="Menus">1</td>
+<td data-label="Cargos por menu">3</td>
+</tr>
+<tr>
+<td data-label="Plano">🛡️ Guardião / 👑 Sentinela</td>
+<td data-label="Menus">10</td>
+<td data-label="Cargos por menu">25</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Com o plano vencido, os menus publicados continuam funcionando, mas criar ou editar além do
+    limite do Vigia pede o plano.</li>
+<li><strong>Permissões:</strong> Gerenciar cargos, e Ver canais, Enviar mensagens e Inserir links no canal.</li>
+<li><strong>Erro comum:</strong> cargos com permissões perigosas ou acima do cargo do Sentinela são recusados.</li>
+</ul>
+<h3 id="paineis-fixos">📌 Painéis fixos — 🔦 Vigia (grátis); Avisos e painel TAG no 🛡️ Guardião</h3>
+<p>Mensagens fixas num canal que o Sentinela mantém sempre atualizadas. Elas são editadas no
+lugar, nunca repostadas, e ninguém é mencionado.</p>
+<table>
+<thead>
+<tr>
+<th>Tipo de painel</th>
+<th>O que mostra</th>
+<th>Plano</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Tipo de painel"><strong>Regras</strong></td>
+<td data-label="O que mostra">As regras do servidor (título e texto).</td>
+<td data-label="Plano">🔦 Vigia: 1</td>
+</tr>
+<tr>
+<td data-label="Tipo de painel"><strong>Comandos</strong></td>
+<td data-label="O que mostra">A lista de comandos para os membros; atualiza sozinha quando você liga ou desliga um recurso.</td>
+<td data-label="Plano">🔦 Vigia: 1</td>
+</tr>
+<tr>
+<td data-label="Tipo de painel"><strong>Ranking</strong></td>
+<td data-label="O que mostra">O ranking de XP (o mesmo <em>Ranking fixo</em> do Cartão e Ranking).</td>
+<td data-label="Plano">🔦 Vigia: 1, a cada 24 h; 🛡️ a cada 1 ou 6 h</td>
+</tr>
+<tr>
+<td data-label="Tipo de painel"><strong>Novidades do Sentinela</strong></td>
+<td data-label="O que mostra">As novidades do bot.</td>
+<td data-label="Plano">🔦 Vigia: 1</td>
+</tr>
+<tr>
+<td data-label="Tipo de painel"><strong>Aviso livre</strong></td>
+<td data-label="O que mostra">Um aviso seu, com cor.</td>
+<td data-label="Plano">🛡️ Guardião: até 5</td>
+</tr>
+<tr>
+<td data-label="Tipo de painel"><strong>🏷️ TAG</strong></td>
+<td data-label="O que mostra">Quem usa a TAG do servidor e os cargos da semana (atualiza a cada 24 h).</td>
+<td data-label="Plano">🛡️ Guardião</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Botões:</strong> Criar painel, Editar texto, Testar (não publica nada), Publicar de novo, Apagar painel.</li>
+<li><strong>Limites:</strong><ul>
+<li>título até 256 caracteres;</li>
+<li>texto até 4.000 caracteres;</li>
+<li>rodapé até 200 caracteres;</li>
+<li>introdução da lista de comandos até 1.000 caracteres;</li>
+<li>cores dos Avisos: azul, verde, amarelo, vermelho, roxo e cinza.</li>
+</ul>
+</li>
+<li><strong>Plano vencido:</strong> os Avisos continuam publicados e podem ser apagados; o painel TAG fica
+    pausado até o plano voltar.</li>
+<li><strong>Permissões:</strong> Ver canais, Enviar mensagens, Inserir links, Ler histórico de mensagens e
+    Anexar arquivos (ranking).</li>
+<li><strong>Dica:</strong> se alguém apagar a mensagem, ela volta ao salvar ou em <em>Publicar de novo</em>.</li>
+</ul>
+
+<h2 id="engajamento">📈 Engajamento</h2>
+<p>XP por mensagem e voz, níveis, ranking, recompensas por nível, aparência e sorteios.</p>
+<h3 id="niveis-e-recompensas">🎖️ Níveis e Recompensas — 🔦 Vigia (grátis)</h3>
+<p>XP por mensagem e por tempo em voz, com níveis, !rank, !top e cargos de recompensa.
+<strong>1 nível = 1.000 XP</strong>, igual em todos os servidores.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Configurar XP → XP por mensagem</strong></td>
+<td data-label="O que faz">XP ganho por mensagem (no máximo 1 vez a cada 60 segundos por membro, com proteção contra farm).</td>
+<td data-label="Padrão">20</td>
+<td data-label="Limites">0 a 500 (0 desliga)</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Configurar XP → XP por ciclo de voz</strong></td>
+<td data-label="O que faz">XP a cada 5 minutos em call com mais alguém, sem estar no mudo.</td>
+<td data-label="Padrão">15</td>
+<td data-label="Limites">0 a 500 (0 desliga)</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Configurar XP → Canais sem XP</strong></td>
+<td data-label="O que faz">Canais onde mensagens e voz não dão XP.</td>
+<td data-label="Padrão">Nenhum</td>
+<td data-label="Limites">Até 25 na janela; acima disso, na tela <em>Canais sem XP</em></td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Restaurar XP padrão</strong></td>
+<td data-label="O que faz">Volta só os valores de XP (os canais ficam).</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Dar XP / Remover XP</strong></td>
+<td data-label="O que faz">Ajusta o XP de um membro.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Recompensas → Adicionar recompensa</strong></td>
+<td data-label="O que faz">Um cargo entregue ao chegar a um nível.</td>
+<td data-label="Padrão">Nenhuma</td>
+<td data-label="Limites">Nível de 1 a 100.000</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Recompensas → Modo</strong></td>
+<td data-label="O que faz"><em>Acumular</em>: o membro fica com todos os cargos de nível. <em>Substituir</em>: fica só o do maior nível.</td>
+<td data-label="Padrão">Acumular</td>
+<td data-label="Limites">Vale a partir do próximo level up</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Recompensas → Remover / Limpar tudo</strong></td>
+<td data-label="O que faz">Tira recompensas (Limpar tudo pede confirmação e não tira os cargos de quem já tem).</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Editar mensagem</strong></td>
+<td data-label="O que faz">A mensagem de subida de nível. Variáveis: {member}, {level} e {cargo} (só quando o nível tem recompensa).</td>
+<td data-label="Padrão">Texto padrão</td>
+<td data-label="Limites">—</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Plano:</strong> tudo no 🔦 Vigia. Os multiplicadores de XP por cargo ficam em <em>Nitro &amp; Tags</em>
+    (🛡️ Guardião).</li>
+<li><strong>Permissões:</strong> Gerenciar cargos (recompensas).</li>
+<li><strong>Erros comuns:</strong><ul>
+<li>Use cargos exclusivos para recompensas, que não sejam do Auto Cargo, do booster nem de TAGs.</li>
+<li>O cargo precisa estar abaixo do cargo do Sentinela.</li>
+<li>Se um campo da janela estiver errado, nada é salvo e o topo diz qual corrigir.</li>
+</ul>
+</li>
+</ul>
+<h3 id="cartao-e-ranking">🖼️ Cartão e Ranking — 🔦 Vigia (grátis); temas e frequência no 🛡️ Guardião</h3>
+<p>O visual do nível, do ranking e do /perfil: o cartão do !rank, a imagem do !top (os 10
+primeiros), o ranking fixo num canal e o perfil dos membros.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Cartão de nível</strong></td>
+<td data-label="O que faz">O !rank responde com uma imagem (avatar, nome, nível, XP e posição).</td>
+<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="Limites">1 cartão a cada 10 s por membro; 1 imagem do !top a cada 10 s por servidor</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Ligar no level up</strong></td>
+<td data-label="O que faz">O aviso de subida de nível vem com o cartão.</td>
+<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="Limites">—</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Tema</strong></td>
+<td data-label="O que faz">As cores do cartão, do !top e do ranking fixo.</td>
+<td data-label="Padrão">Sentinela</td>
+<td data-label="Limites">🔦: Sentinela. 🛡️: + Noite, Esmeralda, Rubi, Dourado e Claro</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Ranking fixo</strong> 🏆</td>
+<td data-label="O que faz">Abre a tela do ranking fixo (abaixo).</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+</tbody>
+</table>
+<p><strong>🏆 Ranking fixo</strong> (dentro de Cartão e Ranking; também em Painéis fixos)
+Uma mensagem num canal com como ganhar XP, as recompensas e a imagem do top 10, sempre
+atualizada.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Configurar</strong></td>
+<td data-label="O que faz">Canal e frequência.</td>
+<td data-label="Padrão"><mark class="conferir">[CONFERIR: frequência padrão de quem tem 🛡️]</mark></td>
+<td data-label="Limites">🔦: a cada 24 h. 🛡️: a cada 1, 6 ou 24 h</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Atualizar agora</strong></td>
+<td data-label="O que faz">Refaz o ranking na hora.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">1 vez a cada 5 minutos</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Apagar</strong></td>
+<td data-label="O que faz">Tira a mensagem do canal.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>Plano vencido:</strong> tudo volta ao tema Sentinela e o ranking volta a 24 horas; as escolhas
+    voltam sozinhas com o plano.</li>
+<li><strong>Fundos do /perfil:</strong><ul>
+<li>Grade digital, Hexágonos e Crepúsculo são do 🛡️ Guardião;</li>
+<li>Coleção e Países, e todos os fundos de conquista liberados, são do 👑 Sentinela.</li>
+<li>A cor de destaque que o membro escolhe no /perfil é do 🛡️ Guardião.</li>
+</ul>
+</li>
+<li><strong>Permissões:</strong> Anexar arquivos (sem ela sai só texto), mais Ver canais, Enviar mensagens e
+    Inserir links.</li>
+<li><strong>Erro comum:</strong> sem permissão no canal do ranking, o Sentinela para depois de 3 tentativas e
+    avisa no painel e no Diagnóstico.</li>
+</ul>
+<h3 id="aparencia">🎨 Aparência — 👑 Sentinela</h3>
+<p>A cara do seu servidor nas mensagens do Sentinela.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Cor própria</strong></td>
+<td data-label="O que faz">A cor da barra lateral das mensagens públicas e do /painel.</td>
+<td data-label="Padrão">Cor do tema</td>
+<td data-label="Limites">10 cores prontas (Azul, Roxo, Verde, Vermelho, Laranja, Amarelo, Rosa, Turquesa, Marrom, Cinza) ou um código #RRGGBB</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Rodapé próprio</strong></td>
+<td data-label="O que faz">Substitui "Sentinela • Seu servidor sob controle".</td>
+<td data-label="Padrão">Rodapé do Sentinela</td>
+<td data-label="Limites">Até 60 caracteres, sem links, convites nem menções</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Banner no topo</strong></td>
+<td data-label="O que faz">Imagem larga no topo da verificação, dos menus de cargos, dos painéis fixos e do anúncio de sorteio.</td>
+<td data-label="Padrão">Nenhum</td>
+<td data-label="Limites">Ideal 1800 × 450; mínimo 600 × 150</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>🏰 Fundo do servidor</strong></td>
+<td data-label="O que faz">Imagem do /perfil para todos os membros, como fundo ou como faixa no topo do cartão.</td>
+<td data-label="Padrão">Nenhum</td>
+<td data-label="Limites">Ideal 1800 × 880</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Prévia / Remover / Usar a cor do tema / Usar o rodapé do Sentinela</strong></td>
+<td data-label="O que faz">Ver como fica e voltar ao padrão.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">Voltar ao padrão é sempre permitido</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Ao salvar, as mensagens fixas já publicadas são atualizadas no lugar (uma a cada 2
+    segundos, sem notificar ninguém).</li>
+<li><strong>Plano:</strong> só no 👑 Sentinela. Sem ele, tudo volta ao padrão do Sentinela, e cor, rodapé,
+    banner e fundo ficam guardados até o plano voltar.</li>
+<li><strong>Permissões:</strong> nenhuma extra.</li>
+</ul>
+<h3 id="sorteios">🎉 Sorteios — 🔦 Vigia (grátis)</h3>
+<p>Crie sorteios no seu servidor com mínimo de participantes e botão Compartilhar.</p>
+<table>
+<thead>
+<tr>
+<th>Configuração</th>
+<th>O que faz</th>
+<th>Padrão</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Configuração"><strong>Criar</strong></td>
+<td data-label="O que faz">Escolha o canal e preencha o formulário.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">Até 2 sorteios em andamento por servidor</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Título</strong> (opcional)</td>
+<td data-label="O que faz">Nome do sorteio.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">Até 256 caracteres</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Prêmio</strong></td>
+<td data-label="O que faz">O que será sorteado.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites"><mark class="conferir">[CONFERIR: tamanho máximo]</mark></td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Ganhadores</strong></td>
+<td data-label="O que faz">Quantas pessoas ganham.</td>
+<td data-label="Padrão">1</td>
+<td data-label="Limites">1 a 10</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Duração em horas</strong></td>
+<td data-label="O que faz">Quanto tempo o sorteio fica aberto.</td>
+<td data-label="Padrão">72</td>
+<td data-label="Limites">1 a 720 horas (30 dias)</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Mínimo de participantes</strong></td>
+<td data-label="O que faz">Abaixo disso, ninguém é sorteado.</td>
+<td data-label="Padrão">0</td>
+<td data-label="Limites">0 a 500</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Descrição</strong></td>
+<td data-label="O que faz">Explica o prêmio e as regras.</td>
+<td data-label="Padrão">Nenhuma</td>
+<td data-label="Limites">Até 1.000 caracteres</td>
+</tr>
+<tr>
+<td data-label="Configuração"><strong>Encerrar / Cancelar / Ressortear / Ganhadores</strong></td>
+<td data-label="O que faz">Termina antes, cancela, sorteia de novo ou vê os ganhadores e marca a entrega.</td>
+<td data-label="Padrão">—</td>
+<td data-label="Limites">—</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>Os membros entram pelo botão <strong>Participar</strong> do anúncio. No fim, o Sentinela sorteia e
+    anuncia os ganhadores.</li>
+<li><strong>Quem pode criar:</strong> só administradores.</li>
+<li><strong>Permissões:</strong> Ver canais, Enviar mensagens, Inserir links e Criar convite instantâneo (para
+    o botão Compartilhar).</li>
+<li><strong>Dica:</strong> quem criou o sorteio e os bots não participam.</li>
+</ul>
+
+<h2 id="planos">💎 Planos</h2>
+<p>Mostra o plano atual do servidor, a validade e o que cada plano libera, com os preços e o
+botão <strong>Dúvidas</strong>. O comando <strong>/plano_status</strong> mostra o mesmo resumo, e
+<strong>/plano_codigo_resgatar</strong> ativa um código promocional.</p>
+<h2 id="configurar-em-3-passos">⚡ Configurar em 3 passos</h2>
+<p>Assistente para começar: canal de logs → proteção → cargo de entrada e XP. Usa os mesmos
+botões das telas normais e pode ser repetido quando quiser.</p>
+<h2 id="diagnostico">🔍 Diagnóstico</h2>
+<p>Só confere, nunca muda nada:</p>
+<ul>
+<li>as permissões do Sentinela no servidor;</li>
+<li>os canais e cargos configurados (apagados, sem acesso, acima do cargo do bot ou perigosos);</li>
+<li>os recursos de plano configurados sem o plano.
+Use sempre que algo não funcionar.</li>
+</ul>
+<h2 id="suporte">📩 Suporte</h2>
+<p>Link para o servidor de suporte do Sentinela.</p>
+
+<h2 id="comandos-publicos">Comandos públicos</h2>
+<table>
+<thead>
+<tr>
+<th>Comando</th>
+<th>O que faz</th>
+<th>Quem usa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Comando"><strong>/painel</strong></td>
+<td data-label="O que faz">Abre o Centro de Controle do Sentinela.</td>
+<td data-label="Quem usa">Administradores</td>
+</tr>
+<tr>
+<td data-label="Comando"><strong>/perfil</strong></td>
+<td data-label="O que faz">Mostra o seu perfil (ou o de outro membro).</td>
+<td data-label="Quem usa">Todos</td>
+</tr>
+<tr>
+<td data-label="Comando"><strong>/dar_xp</strong></td>
+<td data-label="O que faz">Adiciona XP a um membro.</td>
+<td data-label="Quem usa">Administradores</td>
+</tr>
+<tr>
+<td data-label="Comando"><strong>/remover_xp</strong></td>
+<td data-label="O que faz">Remove XP de um membro.</td>
+<td data-label="Quem usa">Administradores</td>
+</tr>
+<tr>
+<td data-label="Comando"><strong>/plano_status</strong></td>
+<td data-label="O que faz">Mostra o plano deste servidor.</td>
+<td data-label="Quem usa">Administradores</td>
+</tr>
+<tr>
+<td data-label="Comando"><strong>/plano_codigo_resgatar</strong></td>
+<td data-label="O que faz">Resgata um código promocional de plano.</td>
+<td data-label="Quem usa">Administradores</td>
+</tr>
+</tbody>
+</table>
+<p>Comandos de texto para todos os membros: <strong>!rank</strong> (o seu nível), <strong>!top</strong> (os 10 primeiros) e
+<strong>!ajuda</strong> (a ajuda).</p>
+
+<h2 id="resumo-recurso-plano">Resumo: recurso × plano</h2>
+<table>
+<thead>
+<tr>
+<th>Recurso</th>
+<th>🔦 Vigia (grátis)</th>
+<th>🛡️ Guardião</th>
+<th>👑 Sentinela</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td data-label="Recurso">🚫 Anti-Spam</td>
+<td data-label="🔦 Vigia (grátis)">✅</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">🚨 Anti-Raid</td>
+<td data-label="🔦 Vigia (grátis)">—</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">🤖 Anti-Bot</td>
+<td data-label="🔦 Vigia (grátis)">—</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">⚠️ Advertências</td>
+<td data-label="🔦 Vigia (grátis)">✅</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">⚠️ Punição por acúmulo</td>
+<td data-label="🔦 Vigia (grátis)">—</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">📜 Logs Administrativos</td>
+<td data-label="🔦 Vigia (grátis)">—</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">👤 Auto Cargo</td>
+<td data-label="🔦 Vigia (grátis)">✅</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">👤 Sincronizar membros antigos</td>
+<td data-label="🔦 Vigia (grátis)">—</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">🔐 Verificação</td>
+<td data-label="🔦 Vigia (grátis)">✅</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">🔐 Idade mínima da conta</td>
+<td data-label="🔦 Vigia (grátis)">—</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">💎 Nitro &amp; Tags (booster, TAGs, multiplicadores)</td>
+<td data-label="🔦 Vigia (grátis)">—</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">📋 Logs gerais</td>
+<td data-label="🔦 Vigia (grátis)">✅</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">📋 Mensagem de TAG personalizada</td>
+<td data-label="🔦 Vigia (grátis)">—</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">🔘 Cargos por botão</td>
+<td data-label="🔦 Vigia (grátis)">1 menu, 3 cargos</td>
+<td data-label="🛡️ Guardião">10 menus, 25 cargos</td>
+<td data-label="👑 Sentinela">10 menus, 25 cargos</td>
+</tr>
+<tr>
+<td data-label="Recurso">📌 Painéis fixos (Regras, Comandos, Ranking, Novidades)</td>
+<td data-label="🔦 Vigia (grátis)">✅</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">📌 Avisos livres</td>
+<td data-label="🔦 Vigia (grátis)">—</td>
+<td data-label="🛡️ Guardião">até 5</td>
+<td data-label="👑 Sentinela">até 5</td>
+</tr>
+<tr>
+<td data-label="Recurso">📌 Painel TAG</td>
+<td data-label="🔦 Vigia (grátis)">—</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">🎖️ Níveis e Recompensas</td>
+<td data-label="🔦 Vigia (grátis)">✅</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">🖼️ Cartão, !top e ranking fixo</td>
+<td data-label="🔦 Vigia (grátis)">tema Sentinela, 24 h</td>
+<td data-label="🛡️ Guardião">+ 5 temas, 1 ou 6 h</td>
+<td data-label="👑 Sentinela">+ 5 temas, 1 ou 6 h</td>
+</tr>
+<tr>
+<td data-label="Recurso">👤 Fundos do /perfil e cor de destaque</td>
+<td data-label="🔦 Vigia (grátis)">padrão</td>
+<td data-label="🛡️ Guardião">+ Grade digital, Hexágonos, Crepúsculo e cor</td>
+<td data-label="👑 Sentinela">+ Coleção, Países e fundos de conquista</td>
+</tr>
+<tr>
+<td data-label="Recurso">🎨 Aparência (cor, rodapé, banner, fundo do servidor)</td>
+<td data-label="🔦 Vigia (grátis)">—</td>
+<td data-label="🛡️ Guardião">—</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+<tr>
+<td data-label="Recurso">🎉 Sorteios</td>
+<td data-label="🔦 Vigia (grátis)">✅</td>
+<td data-label="🛡️ Guardião">✅</td>
+<td data-label="👑 Sentinela">✅</td>
+</tr>
+</tbody>
+</table>
+</article>
+</main>
+<footer class="rodape faixa">
+  <div class="miolo">
+    <div>
+      <p style="font:700 18px var(--f-titulo);color:var(--texto)">Sentinela</p>
+      <p>Seu servidor sob controle.</p>
+    </div>
+    <nav class="links" aria-label="Links legais e suporte">
+      <a href="termos">Termos de Uso</a>
+      <a href="privacidade">Política de Privacidade</a>
+      <a href="como-configurar">Como configurar</a>
+      <a href="guia">Guia</a>
+      <a href="comandos">Comandos</a>
+      <a href="novidades">Novidades</a>
+      <a href="https://discord.gg/Gdrckvm72r">Suporte</a>
+    </nav>
+  </div>
+</footer>
+</body>
+</html>

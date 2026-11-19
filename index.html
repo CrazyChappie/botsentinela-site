@@ -70,6 +70,10 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 
 /* herói */
 .heroi .miolo{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;padding-block:72px 64px}
+.status-bot{display:inline-flex;align-items:center;gap:8px;margin:0 0 16px;padding:6px 12px;border:1px solid var(--borda);border-radius:999px;background:var(--muralha);font-size:14px;color:var(--apagado)}
+.status-bot[hidden]{display:none}
+.status-bot b{color:var(--texto);font-weight:600}
+.status-bot .ponto{width:8px;height:8px;border-radius:50%;background:#3ba55d;box-shadow:0 0 0 3px color-mix(in srgb,#3ba55d 25%,transparent)}
 .heroi h1{font-size:clamp(36px, 5.4vw, 60px);font-weight:700}
 .heroi h1 em{font-style:normal;color:var(--guardiao)}
 .heroi p.lead{color:var(--apagado);font-size:18px;max-width:52ch;margin:20px 0 28px}
@@ -198,6 +202,7 @@ code{font-family:ui-monospace, "Cascadia Mono", Menlo, monospace;background:#1a2
   <section class="heroi faixa">
     <div class="miolo">
       <div>
+        <p class="status-bot" id="status-bot" hidden aria-live="polite"><span class="ponto" aria-hidden="true"></span><span id="status-texto"><b>Online agora</b></span></p>
         <p class="rotulo">Bot de proteção para Discord</p>
         <h1>Seu servidor com um <em>guarda</em> de plantão.</h1>
         <p class="lead">O Sentinela segura raids e bots, organiza cargos, verifica quem entra e cuida dos níveis. Tudo num painel só, o <code>/painel</code>, em português.</p>
@@ -408,5 +413,24 @@ code{font-family:ui-monospace, "Cascadia Mono", Menlo, monospace;background:#1a2
   </div>
 </footer>
 
+<script>
+(function(){
+  var el=document.getElementById('status-bot'),tx=document.getElementById('status-texto');
+  if(!el||!window.fetch)return;
+  var ctl=window.AbortController?new AbortController():null;
+  if(ctl)setTimeout(function(){ctl.abort()},5000);
+  fetch('https://api.botsentinela.com.br/public/status',ctl?{signal:ctl.signal}:{})
+    .then(function(r){return r.ok?r.json():null})
+    .then(function(d){
+      if(!d||d.online!==true)return;
+      var n=function(v){return Number(v).toLocaleString('pt-BR')};
+      var t='<b>Online agora</b>';
+      if(Number.isInteger(d.servidores)&&Number.isInteger(d.membros)){
+        t+=' · protegendo <b>'+n(d.servidores)+'</b> servidores e <b>'+n(d.membros)+'</b> membros';
+      }
+      tx.innerHTML=t; el.hidden=false;
+    }).catch(function(){});
+})();
+</script>
 </body>
 </html>

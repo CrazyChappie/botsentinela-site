@@ -63,6 +63,7 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .botao{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 20px;border-radius:10px;font:600 15px var(--f-texto);text-decoration:none;border:1px solid transparent;cursor:pointer}
 .botao.primario{background:var(--guardiao);color:#06101f}
 .botao.primario:hover{background:#6aa0ff}
+.botao.ouro{background:var(--sentinela);color:#1a1200}.botao.ouro:hover{background:#f5c45a}
 .botao.secundario{border-color:var(--borda);color:var(--texto);background:transparent}
 .botao.secundario:hover{border-color:var(--apagado)}
 .botao[aria-disabled="true"]{background:#1a2333;color:var(--apagado);border-color:var(--borda);cursor:not-allowed}
@@ -309,7 +310,7 @@ code{font-family:ui-monospace, "Cascadia Mono", Menlo, monospace;background:#1a2
 
       <div class="fundador">
         <strong>Preço de Fundador</strong>
-        <span>Os 50 primeiros servidores pagam o preço de lançamento enquanto a assinatura estiver ativa.</span>
+        <span><b style="color:var(--texto)">Vendas abertas!</b> Os 50 primeiros servidores pagam o preço de lançamento enquanto a assinatura estiver ativa. Veja quantas vagas restam no <code>/painel</code> → 💎 Planos.</span>
       </div>
 
       <div class="grade3">
@@ -342,7 +343,7 @@ code{font-family:ui-monospace, "Cascadia Mono", Menlo, monospace;background:#1a2
             <li>Ranking fixo a cada 1 h</li>
             <li>Temas, 3 fundos e cor no /perfil</li>
           </ul>
-          <a class="botao" aria-disabled="true" role="link">Vendas abrem em breve</a>
+          <a class="botao primario" href="#assinar">Assinar o Guardião</a>
         </article>
 
         <article class="plano s">
@@ -357,7 +358,7 @@ code{font-family:ui-monospace, "Cascadia Mono", Menlo, monospace;background:#1a2
             <li>Todos os fundos de conquista liberados</li>
             <li>Lançamentos primeiro</li>
           </ul>
-          <a class="botao" aria-disabled="true" role="link">Vendas abrem em breve</a>
+          <a class="botao primario ouro" href="#assinar">Assinar o Sentinela</a>
         </article>
       </div>
 
@@ -369,7 +370,7 @@ code{font-family:ui-monospace, "Cascadia Mono", Menlo, monospace;background:#1a2
     <div class="miolo">
       <p class="rotulo">Como assinar</p>
       <h2>Tudo de dentro do Discord.</h2>
-      <p class="intro">Quando as vendas abrirem, a assinatura acontece no próprio servidor.</p>
+      <p class="intro">A assinatura acontece no próprio servidor, em poucos minutos.</p>
       <ol class="passos">
         <li><b>Adicione o Sentinela</b><span>Use o botão "Adicionar ao Discord" e escolha o seu servidor.</span></li>
         <li><b>Abra o <code>/painel</code></b><span>No seu servidor, entre em <b style="display:inline">Planos</b>.</span></li>

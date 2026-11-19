@@ -291,8 +291,8 @@ com o seu servidor escolhido. Basta confirmar.</p>
 <li><strong>Plano:</strong> só no 🛡️ Guardião. Com o plano vencido, fica ⏸️ pausado: não detecta nem segura
     cargos, e um raid em andamento termina com os cargos entregues.</li>
 <li><strong>Permissões:</strong> Gerenciar cargos.</li>
-<li><strong>Dica:</strong> configure também os <strong>Logs Administrativos</strong> ou os <strong>Logs gerais</strong> para receber o
-    alerta num canal da equipe. <mark class="conferir">[CONFERIR: em qual canal o alerta do raid aparece]</mark></li>
+<li><strong>Onde aparece o alerta:</strong> no canal dos <strong>Logs gerais</strong>. Sem esse canal (ou se o envio falhar),
+    vai para os <strong>Logs Administrativos</strong>. Configure pelo menos um dos dois.</li>
 </ul>
 <h3 id="antibot">🤖 Anti-Bot — 🛡️ Guardião</h3>
 <p>Avisa quando um bot é adicionado ao servidor.</p>
@@ -317,8 +317,8 @@ com o seu servidor escolhido. Basta confirmar.</p>
 <ul>
 <li>Não bloqueia nem expulsa o bot: só avisa.</li>
 <li><strong>Plano:</strong> só no 🛡️ Guardião. Com o plano vencido, fica ⏸️ pausado.</li>
-<li><strong>Permissões:</strong> Ver canais, Enviar mensagens e Inserir links no canal do aviso.</li>
-<li><mark class="conferir">[CONFERIR: em qual canal o aviso do Anti-Bot aparece (logs gerais ou administrativos)]</mark></li>
+<li><strong>Onde aparece o aviso:</strong> no canal dos <strong>Logs gerais</strong> (sem ele, o aviso não é enviado).</li>
+<li><strong>Permissões:</strong> Ver canais, Enviar mensagens e Inserir links no canal dos Logs gerais.</li>
 </ul>
 <h3 id="advertencias">⚠️ Advertências — 🔦 Vigia (grátis); punição por acúmulo no 🛡️ Guardião</h3>
 <p>Um aviso oficial para um membro, com motivo, e o histórico de cada pessoa para a equipe.
@@ -348,14 +348,14 @@ Sozinha, a advertência não pune.</p>
 <tr>
 <td data-label="Configuração"><strong>Mensagem privada</strong> (Ligada/Desligada)</td>
 <td data-label="O que faz">O membro recebe o motivo em mensagem privada.</td>
-<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="Padrão">Ligada</td>
 <td data-label="Limites">—</td>
 </tr>
 <tr>
 <td data-label="Configuração"><strong>Validade das advertências</strong> (Alterar)</td>
 <td data-label="O que faz">Por quantos dias uma advertência conta.</td>
 <td data-label="Padrão">90 dias</td>
-<td data-label="Limites">1 a 3.650 dias <mark class="conferir">[CONFERIR: mínimo]</mark></td>
+<td data-label="Limites">0 a 3.650 dias (0 = nunca expiram)</td>
 </tr>
 <tr>
 <td data-label="Configuração"><strong>Histórico do membro</strong></td>
@@ -459,7 +459,7 @@ Sozinha, a advertência não pune.</p>
 <tr>
 <td data-label="Configuração"><strong>Esperar as regras do Discord</strong> (Sim/Não)</td>
 <td data-label="O que faz">O cargo só vem depois que o membro aceita as regras do servidor.</td>
-<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="Padrão">Sim</td>
 <td data-label="Limites">—</td>
 </tr>
 <tr>
@@ -472,7 +472,7 @@ Sozinha, a advertência não pune.</p>
 <td data-label="Configuração"><strong>Sincronizar</strong> 🛡️</td>
 <td data-label="O que faz">Dá o cargo a quem já estava no servidor antes de você configurar.</td>
 <td data-label="Padrão">—</td>
-<td data-label="Limites">Servidores muito grandes podem ser recusados. <mark class="conferir">[CONFERIR: limite de membros para mostrar]</mark></td>
+<td data-label="Limites">Servidores muito grandes podem ser recusados; 15 minutos entre uma sincronização e a próxima. A entrega automática para quem entra continua funcionando</td>
 </tr>
 <tr>
 <td data-label="Configuração"><strong>Desativar</strong></td>
@@ -589,13 +589,13 @@ verificado.</p>
 <td data-label="Configuração"><strong>TAGs</strong></td>
 <td data-label="O que faz">Liga um cargo à TAG do servidor: quem usa a TAG ganha o cargo, quem tira perde.</td>
 <td data-label="Padrão">Nenhuma</td>
-<td data-label="Limites"><mark class="conferir">[CONFERIR: quantos cargos de TAG]</mark></td>
+<td data-label="Limites">Sem limite de quantidade; cada TAG com 3 a 10 caracteres</td>
 </tr>
 <tr>
 <td data-label="Configuração"><strong>Multiplicadores</strong> ⚡</td>
-<td data-label="O que faz">Multiplicador de XP por cargo (ex.: boosters ganham 2x XP).</td>
+<td data-label="O que faz">Multiplicador de XP para quem tem o cargo de booster (ex.: 2x XP).</td>
 <td data-label="Padrão">Nenhum</td>
-<td data-label="Limites"><mark class="conferir">[CONFERIR: valores mínimo e máximo]</mark></td>
+<td data-label="Limites">De 1,0x a 20,0x; um valor só, o do cargo de booster</td>
 </tr>
 <tr>
 <td data-label="Configuração"><strong>Mensagem da TAG</strong></td>
@@ -645,7 +645,7 @@ ações das proteções.</p>
 <tr>
 <td data-label="Configuração"><strong>Quais avisos enviar</strong></td>
 <td data-label="O que faz">Marque: entrada de membro, entrada de bot, subida de nível e (com Nitro &amp; Tags) colocou ou tirou a TAG.</td>
-<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="Padrão">Todos ligados</td>
 <td data-label="Limites">—</td>
 </tr>
 <tr>
@@ -675,7 +675,7 @@ ações das proteções.</p>
 <tr>
 <td data-label="Configuração"><strong>Cartão de boas-vindas</strong></td>
 <td data-label="O que faz">Na entrada de um membro, uma imagem com avatar, nome e número do membro.</td>
-<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="Padrão">Ligado</td>
 <td data-label="Limites">Tema Sentinela no Vigia; temas coloridos no 🛡️ Guardião</td>
 </tr>
 </tbody>
@@ -713,7 +713,7 @@ ações das proteções.</p>
 <tr>
 <td data-label="Configuração"><strong>Modo</strong></td>
 <td data-label="O que faz"><em>Vários</em>: a pessoa pega quantos quiser. <em>Só um</em>: ao escolher um, os outros do menu saem.</td>
-<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="Padrão">Vários</td>
 <td data-label="Limites">—</td>
 </tr>
 <tr>
@@ -896,7 +896,7 @@ lugar, nunca repostadas, e ninguém é mencionado.</p>
 </tbody>
 </table>
 <ul>
-<li><strong>Plano:</strong> tudo no 🔦 Vigia. Os multiplicadores de XP por cargo ficam em <em>Nitro &amp; Tags</em>
+<li><strong>Plano:</strong> tudo no 🔦 Vigia. O multiplicador de XP do booster fica em <em>Nitro &amp; Tags</em>
     (🛡️ Guardião).</li>
 <li><strong>Permissões:</strong> Gerenciar cargos (recompensas).</li>
 <li><strong>Erros comuns:</strong><ul>
@@ -921,14 +921,14 @@ primeiros), o ranking fixo num canal e o perfil dos membros.</p>
 <tbody>
 <tr>
 <td data-label="Configuração"><strong>Cartão de nível</strong></td>
-<td data-label="O que faz">O !rank responde com uma imagem (avatar, nome, nível, XP e posição).</td>
-<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="O que faz">O !rank responde com uma imagem (avatar, nome, nível, XP e posição). Sem <em>Anexar arquivos</em> no canal (ou dentro do limite de tempo), sai em texto.</td>
+<td data-label="Padrão">Sempre ativo (não tem botão de desligar)</td>
 <td data-label="Limites">1 cartão a cada 10 s por membro; 1 imagem do !top a cada 10 s por servidor</td>
 </tr>
 <tr>
 <td data-label="Configuração"><strong>Ligar no level up</strong></td>
 <td data-label="O que faz">O aviso de subida de nível vem com o cartão.</td>
-<td data-label="Padrão"><mark class="conferir">[CONFERIR]</mark></td>
+<td data-label="Padrão">Desligado</td>
 <td data-label="Limites">—</td>
 </tr>
 <tr>
@@ -961,7 +961,7 @@ atualizada.</p>
 <tr>
 <td data-label="Configuração"><strong>Configurar</strong></td>
 <td data-label="O que faz">Canal e frequência.</td>
-<td data-label="Padrão"><mark class="conferir">[CONFERIR: frequência padrão de quem tem 🛡️]</mark></td>
+<td data-label="Padrão">A cada 6 h (🔦 Vigia: sempre 24 h)</td>
 <td data-label="Limites">🔦: a cada 24 h. 🛡️: a cada 1, 6 ou 24 h</td>
 </tr>
 <tr>
@@ -1071,7 +1071,7 @@ atualizada.</p>
 <td data-label="Configuração"><strong>Prêmio</strong></td>
 <td data-label="O que faz">O que será sorteado.</td>
 <td data-label="Padrão">—</td>
-<td data-label="Limites"><mark class="conferir">[CONFERIR: tamanho máximo]</mark></td>
+<td data-label="Limites">Até 200 caracteres</td>
 </tr>
 <tr>
 <td data-label="Configuração"><strong>Ganhadores</strong></td>
@@ -1249,7 +1249,7 @@ Use sempre que algo não funcionar.</li>
 <td data-label="👑 Sentinela">✅</td>
 </tr>
 <tr>
-<td data-label="Recurso">💎 Nitro &amp; Tags (booster, TAGs, multiplicadores)</td>
+<td data-label="Recurso">💎 Nitro &amp; Tags (booster, TAGs, multiplicador do booster)</td>
 <td data-label="🔦 Vigia (grátis)">—</td>
 <td data-label="🛡️ Guardião">✅</td>
 <td data-label="👑 Sentinela">✅</td>
